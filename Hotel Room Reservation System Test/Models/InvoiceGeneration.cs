@@ -1,12 +1,12 @@
-﻿namespace Sample_Hotel_Room_Reservation_System.Models
+﻿namespace Hotel_Room_Reservation_System_Test.Models
 {
     public class InvoiceGeneration
     {
         public int Id { get; set; }
-        public string ReservationID { get; set; }
+        public string? ReservationID { get; set; }
 
         public decimal TotalAmount { get; set; }
-        public string Status { get; set; }
+        public string? Status { get; set; }
 
         public InvoiceGeneration()
         {

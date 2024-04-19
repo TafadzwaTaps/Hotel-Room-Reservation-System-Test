@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Hotel_Room_Reservation_System_Test.Models.CancellationPolicy>
+
+<h1>Cancellation Policies</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Policy Name</th>           
+            <!-- Add other headers as needed -->
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var policy in Model)
+        {
+            <tr>
+                <td>@policy.PolicyName</td>
+                <td>@policy.PolicyDescription</td>
+                <td>@policy.CancellationFee</td>
+                <!-- Add other fields as needed -->
+                <td>
+                    <a asp-action="Details" asp-route-id="@policy.id">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@policy.id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@policy.id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create">Create New</a>

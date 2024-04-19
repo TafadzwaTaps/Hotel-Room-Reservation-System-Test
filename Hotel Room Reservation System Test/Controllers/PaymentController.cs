@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sample_Hotel_Room_Reservation_System.Databases;
-using Sample_Hotel_Room_Reservation_System.Models;
+using Hotel_Room_Reservation_System_Test.Databases;
+using Hotel_Room_Reservation_System_Test.Models;
 using System.Linq;
 
-namespace Sample_Hotel_Room_Reservation_System.Controllers
+namespace Hotel_Room_Reservation_System_Test.Controllers
 {
     public class PaymentController : Controller
     {
@@ -91,8 +91,11 @@ namespace Sample_Hotel_Room_Reservation_System.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var payment = _dbContext.Payment.FirstOrDefault(p => p.Id == id);
-            _dbContext.Payment.Remove(payment);
-            _dbContext.SaveChanges();
+            if (payment != null)
+            {
+                _dbContext.Payment.Remove(payment);
+                _dbContext.SaveChanges();
+            }
             return RedirectToAction(nameof(Index));
         }
     }

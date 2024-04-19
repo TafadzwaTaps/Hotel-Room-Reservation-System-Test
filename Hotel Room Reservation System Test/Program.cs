@@ -1,6 +1,23 @@
+using Hotel_Room_Reservation_System_Test.Databases;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllersWithViews();
+
+// Add ASP.NET Identity services
+builder.Services.AddDbContext<HotelDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("HotelRoomDatabaseConnection")));
+
+builder.Services.AddSession(options =>
+{
+    // Set a short timeout for easy testing. Change to a longer duration for production.
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -15,9 +32,11 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 
+// Add ASP.NET Identity middleware
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -25,3 +44,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+

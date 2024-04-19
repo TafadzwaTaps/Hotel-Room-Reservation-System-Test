@@ -1,0 +1,174 @@
+﻿@using System.Text.Encodings.Web
+
+@{
+    ViewData["Title"] = "Dashboard Results";
+}
+<h1>Dashboard Results</h1>
+
+<style>
+    
+
+    .calendar {
+        width: 100%;
+        overflow-x: scroll;
+        white-space: nowrap;
+    }
+
+    .months {
+        display: flex;
+    }
+
+    .month {
+        width: 80%;
+        min-width: 300px;
+        flex-shrink: 0;
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #007bff;
+    }
+
+    h2 {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .weekdays {
+        display: flex;
+        justify-content: space-around;
+        list-style-type: none;
+        padding: 0;
+        margin: 0 0 10px;
+    }
+
+        .weekdays li {
+            width: 40px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+    .days {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .days li {
+            list-style-type: none;
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 18px;
+            color: #089;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+            .days li:hover {
+                background-color: #1abc9c;
+                color: white;
+            }
+
+    .active {
+        background-color: #1abc9c;
+        color: white;
+    }
+
+    /* Adjust the background color of the calendar to blue */
+    #calendar {
+        background-color: #3498db;
+        color: dimgrey;
+    }
+
+    /* Make the days in the calendar appear in dark bold font */
+    .fc-day-number {
+        font-weight: bold;
+    }
+
+    /* Optional: Style for search button */
+    #searchButton {
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+</style>
+
+<!-- Add search input to your dashboard -->
+<div class="search-container">
+    <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search...">
+    <button id="searchButton" onclick="searchFunction()">Search</button>
+</div>
+
+
+
+<div id="main">
+
+    <div id='calendar'></div>
+
+
+
+    @section scripts {
+        <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#calendar').fullCalendar({
+                    defaultView: 'month',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    selectable: true,
+                    selectHelper: true,
+                    editable: true,
+                    eventLimit: true,
+                    events: [
+                        {
+                            title: 'Event 1',
+                            start: '2023-10-01'
+                        },
+                        {
+                            title: 'Event 2',
+                            start: '2023-10-05',
+                            end: '2023-10-07'
+                        },
+                        {
+                            title: 'Event 3',
+                            start: '2023-10-09T12:30:00',
+                            allDay: false
+                        }
+                        // add more events here...
+                    ]
+                });
+            });
+
+        </script>
+    }
+</div>
+

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sample_Hotel_Room_Reservation_System.Databases;
-using Sample_Hotel_Room_Reservation_System.Models;
+using Hotel_Room_Reservation_System_Test.Databases;
+using Hotel_Room_Reservation_System_Test.Models;
 using System.Linq;
 
-namespace Sample_Hotel_Room_Reservation_System.Controllers
+namespace Hotel_Room_Reservation_System_Test.Controllers
 {
     public class CancellationPolicyController : Controller
     {
@@ -91,8 +91,11 @@ namespace Sample_Hotel_Room_Reservation_System.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var policy = _dbContext.CancellationPolicy.FirstOrDefault(p => p.id == id);
-            _dbContext.CancellationPolicy.Remove(policy);
-            _dbContext.SaveChanges();
+            if (policy != null)
+            {
+                _dbContext.CancellationPolicy.Remove(policy);
+                _dbContext.SaveChanges();
+            }    
             return RedirectToAction(nameof(Index));
         }
     }

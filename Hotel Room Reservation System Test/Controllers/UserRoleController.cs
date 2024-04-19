@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sample_Hotel_Room_Reservation_System.Databases;
-using Sample_Hotel_Room_Reservation_System.Models;
+using Hotel_Room_Reservation_System_Test.Databases;
+using Hotel_Room_Reservation_System_Test.Models;
 using System.Linq;
 
-namespace Sample_Hotel_Room_Reservation_System.Controllers
+namespace Hotel_Room_Reservation_System_Test.Controllers
 {
     public class UserRoleController : Controller
     {
@@ -91,8 +91,12 @@ namespace Sample_Hotel_Room_Reservation_System.Controllers
         public ActionResult DeleteConfirmed(string roleId)
         {
             var userRole = _dbContext.UserRole.FirstOrDefault(ur => ur.RoleId == roleId);
-            _dbContext.UserRole.Remove(userRole);
-            _dbContext.SaveChanges();
+            if (userRole != null)
+            {
+                _dbContext.UserRole.Remove(userRole);
+                _dbContext.SaveChanges();
+            }
+          
             return RedirectToAction(nameof(Index));
         }
     }

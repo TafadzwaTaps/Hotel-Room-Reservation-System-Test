@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Sample_Hotel_Room_Reservation_System.Models
+namespace Hotel_Room_Reservation_System_Test.Models
 {
     public class Review
     {
@@ -9,11 +9,11 @@ namespace Sample_Hotel_Room_Reservation_System.Models
         [Required]
         public int RoomID { get; set; }
         [Required]
-        public string UserID { get; set; }
+        public string? UserID { get; set; }
         [Required]
         public int Rating { get; set; } 
         [Required]
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
         public DateTime ReviewDate{ get; set; }
 
         public Review()

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Hotel_Room_Reservation_System_Test.Models.Room>
+
+<h1>Rooms</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Room Capacity</th>
+            <th>Price</th>
+            <th>Is Available</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var room in Model)
+        {
+            <tr>
+                <td>@room.Name</td>
+                <td>@room.Description</td>
+                <td>@room.RoomCapacity</td>
+                <td>@room.Price</td>
+                <td>@room.IsAvailable</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@room.Id">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@room.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@room.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create">Create New</a>

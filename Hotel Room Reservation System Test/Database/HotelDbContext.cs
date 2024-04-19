@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Sample_Hotel_Room_Reservation_System.Models;
+using Hotel_Room_Reservation_System_Test.Models;
 
-namespace Sample_Hotel_Room_Reservation_System.Databases
+namespace Hotel_Room_Reservation_System_Test.Databases
 {
     public class HotelDbContext : DbContext
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Sample_Hotel_Room_Reservation_System.Models
+namespace Hotel_Room_Reservation_System_Test.Models
 {
     public class Reservation
     {
@@ -9,13 +9,13 @@ namespace Sample_Hotel_Room_Reservation_System.Models
         [Required]
         public int RoomId { get; set; }
 
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
 
         public DateTime CheckInDate { get; set; }
 
         public DateTime CheckOutDate { get; set; }
 
-        public string Status { get; set; }
+        public string? Status { get; set; }
         // Navigation property
         public virtual Room Room { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Sample_Hotel_Room_Reservation_System.Models
+namespace Hotel_Room_Reservation_System_Test.Models
 {
     public class RegisterView
     {

@@ -1,14 +1,14 @@
-﻿namespace Sample_Hotel_Room_Reservation_System.Models
+﻿namespace Hotel_Room_Reservation_System_Test.Models
 {
     public class Payment
     {
         public int Id { get; set; }
         public int ReservationId { get; set; }
         public decimal Amount { get; set; }
-        public string PaymentMethod { get; set; }
+        public string? PaymentMethod { get; set; }
         public int TransactionId { get; set; }
-        public string PaymentStatus { get; set; } = string.Empty;
-        public string CurrencyCode { get; set; }
+        public string? PaymentStatus { get; set; } = string.Empty;
+        public string? CurrencyCode { get; set; }
 
         public Payment()
         {

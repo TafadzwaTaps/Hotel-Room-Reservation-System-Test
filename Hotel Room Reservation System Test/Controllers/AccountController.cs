@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Sample_Hotel_Room_Reservation_System.Databases;
-using Sample_Hotel_Room_Reservation_System.Models;
+using Hotel_Room_Reservation_System_Test.Databases;
+using Hotel_Room_Reservation_System_Test.Models;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -95,7 +95,8 @@ public class AccountController : Controller
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, model.Username)
+                    new Claim(ClaimTypes.Name, model.Username),
+                    new Claim(ClaimTypes.Role, user.Role)
                 };
                 var identity = new ClaimsIdentity(claims, "login");
                 var principal = new ClaimsPrincipal(identity);

@@ -1,10 +1,10 @@
-﻿namespace Sample_Hotel_Room_Reservation_System.Models
+﻿namespace Hotel_Room_Reservation_System_Test.Models
 {
     public class Hotel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
+        public string? Name { get; set; }
+        public string? Address { get; set; }
         public int PhoneNumber { get; set; }
 
         public Hotel()

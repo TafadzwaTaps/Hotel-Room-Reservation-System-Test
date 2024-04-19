@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sample_Hotel_Room_Reservation_System.Databases;
-using Sample_Hotel_Room_Reservation_System.Models;
+using Hotel_Room_Reservation_System_Test.Databases;
+using Hotel_Room_Reservation_System_Test.Models;
 using System;
 using System.Linq;
 
-namespace Sample_Hotel_Room_Reservation_System.Controllers
+namespace Hotel_Room_Reservation_System_Test.Controllers
 {
     public class ReviewController : Controller
     {
@@ -93,8 +93,11 @@ namespace Sample_Hotel_Room_Reservation_System.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var review = _dbContext.Review.FirstOrDefault(r => r.Id == id);
-            _dbContext.Review.Remove(review);
-            _dbContext.SaveChanges();
+            if (review != null)
+            {
+                _dbContext.Review.Remove(review);
+                _dbContext.SaveChanges();
+            }       
             return RedirectToAction(nameof(Index));
         }
     }
