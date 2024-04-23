@@ -2,6 +2,7 @@
 using Hotel_Room_Reservation_System_Test.Databases;
 using Hotel_Room_Reservation_System_Test.Models;
 using System.Linq;
+using System.Security.Claims;
 
 namespace Hotel_Room_Reservation_System_Test.Controllers
 {
@@ -16,6 +17,7 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
 
         public ActionResult Index()
         {
+
             var users = _dbContext.User.ToList();
             return View(users);
         }

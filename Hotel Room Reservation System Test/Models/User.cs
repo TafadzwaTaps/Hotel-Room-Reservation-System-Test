@@ -26,7 +26,7 @@ namespace Hotel_Room_Reservation_System_Test.Models
 
         }
 
-        public User(string _username, string _email, string _passwordHash, string _firstname, string _lastname, int _phoneNumber, string physicalAddress)
+        public User(string _username, string _email, string _passwordHash, string _firstname, string _lastname, int _phoneNumber, string physicalAddress, string _role)
 
         {
             UserName = _username;
@@ -36,7 +36,7 @@ namespace Hotel_Room_Reservation_System_Test.Models
             PasswordHash = _passwordHash;
             PhoneNumber = _phoneNumber;
             PhysicalAddress = physicalAddress;
-
+            Role = _role;
         }
     }
 }

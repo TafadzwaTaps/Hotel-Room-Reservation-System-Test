@@ -30,9 +30,7 @@ public class AccountController : Controller
 
     private bool IsUsernameTaken(string username)
     {
-        // In a real application, you would check the database to see if the username exists.
-        // For simplicity, we'll use an in-memory list.
-        return users.Any(user => user.UserName == username);
+        return _dbContext.User.Any(user => user.UserName == username);
     }
 
     [HttpGet]
@@ -52,35 +50,46 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
-            bool isUsernameTaken = IsUsernameTaken(user.Username);
-
-            if (isUsernameTaken)
+            // Check if the provided username is not null or empty
+            if (!string.IsNullOrEmpty(user.Username))
             {
-                ModelState.AddModelError("Username", "The username is already taken.");
+                bool isUsernameTaken = IsUsernameTaken(user.Username);
+
+                if (isUsernameTaken)
+                {
+                    ModelState.AddModelError("Username", "The username is already taken.");
+                    return View(user);
+                }
+
+                var newUser = new User
+                {
+                    UserName = user.Username,
+                    Email = user.Email,
+                    PasswordHash = user.Password,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    PhoneNumber = user.PhoneNumber,
+                    PhysicalAddress = user.PhysicalAddress,
+                    Role = user.Role,
+                };
+
+                _dbContext.User.Add(newUser); // Add the newUser object
+                _dbContext.SaveChanges();
+
+                // Redirect or perform other actions after successful registration.
+                return RedirectToAction("Login"); // Customize this as needed.
+            }
+            else
+            {
+                // Handle the case where the username is null or empty
+                ModelState.AddModelError("Username", "Username cannot be null or empty.");
                 return View(user);
             }
-
-            var newUser = new User
-            {
-                UserName = user.Username,
-                Email = user.Email,
-                PasswordHash = user.Password,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                PhoneNumber = user.PhoneNumber,
-                PhysicalAddress = user.PhysicalAddress,
-                Role = user.Role,             
-            };
-
-            _dbContext.User.Add(newUser); // Add the newUser object
-            _dbContext.SaveChanges();
-
-            // Redirect or perform other actions after successful registration.
-            return RedirectToAction("Login"); // Customize this as needed.
         }
 
         return View(user);
     }
+
 
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -95,20 +104,20 @@ public class AccountController : Controller
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, model.Username),
-                    new Claim(ClaimTypes.Role, user.Role)
+                new Claim(ClaimTypes.Name, model.Username ?? string.Empty),
+                new Claim(ClaimTypes.Role, user.Role)
                 };
+
                 var identity = new ClaimsIdentity(claims, "login");
                 var principal = new ClaimsPrincipal(identity);
                 var props = new AuthenticationProperties();
                 HttpContext.SignInAsync(principal, props);
 
-                // For setting session variables, you can use the following:
-                HttpContext.Session.SetString("username", model.Username);
-
+                HttpContext.Session.SetString("Role", user.Role);
                 // Redirect to a success page after setting cookies or session variables
                 return RedirectToAction("HomePage", "home");
             }
+
             else
             {
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -118,5 +127,6 @@ public class AccountController : Controller
 
         return View(model);
     }
+
 
 }

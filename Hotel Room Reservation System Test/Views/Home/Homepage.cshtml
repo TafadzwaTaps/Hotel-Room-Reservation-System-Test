@@ -1,174 +1,186 @@
-﻿@using System.Text.Encodings.Web
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http
 
 @{
-    ViewData["Title"] = "Dashboard Results";
+    ViewData["Title"] = "Hotel Room Welcomes You";
+
+    var httpContext = HttpContextAccessor.HttpContext;
+    var role = httpContext?.Session.GetString("Role");
 }
-<h1>Dashboard Results</h1>
+
+@{
+    ViewData["Title"] = "Hotel Room Welcomes You";
+}
 
 <style>
-    
-
-    .calendar {
-        width: 100%;
-        overflow-x: scroll;
-        white-space: nowrap;
+    /* Add custom styles for user profile */
+    .user-profile {
+        position: absolute;
+        top: 10px;
+        right: 10px;
     }
 
-    .months {
-        display: flex;
-    }
-
-    .month {
-        width: 80%;
-        min-width: 300px;
-        flex-shrink: 0;
-        display: flex;
-        flex-wrap: wrap;
-        margin-right: 20px;
-        background-color: #f9f9f9;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 20px;
-        color: #007bff;
-    }
-
-    h2 {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .weekdays {
-        display: flex;
-        justify-content: space-around;
-        list-style-type: none;
-        padding: 0;
-        margin: 0 0 10px;
-    }
-
-        .weekdays li {
-            width: 40px;
-            text-align: center;
-            font-size: 18px;
-        }
-
-    .days {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-
-        .days li {
-            list-style-type: none;
-            display: inline-block;
+        .user-profile img {
             width: 40px;
             height: 40px;
-            line-height: 40px;
-            text-align: center;
-            margin-bottom: 5px;
-            font-size: 18px;
-            color: #089;
-            cursor: pointer;
             border-radius: 50%;
-            transition: background-color 0.3s ease;
+            margin-right: 10px;
         }
 
-            .days li:hover {
-                background-color: #1abc9c;
-                color: white;
+        .user-profile .user-details {
+            display: flex;
+            align-items: center;
+            color: #333;
+            cursor: pointer;
+        }
+
+            .user-profile .user-details .username {
+                margin-right: 10px;
             }
 
-    .active {
-        background-color: #1abc9c;
-        color: white;
-    }
+        .user-profile .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
 
-    /* Adjust the background color of the calendar to blue */
-    #calendar {
-        background-color: #3498db;
-        color: dimgrey;
-    }
+            .user-profile .dropdown-menu a {
+                display: block;
+                padding: 10px;
+                color: #333;
+                text-decoration: none;
+                transition: background-color 0.3s ease;
+            }
 
-    /* Make the days in the calendar appear in dark bold font */
-    .fc-day-number {
-        font-weight: bold;
-    }
-
-    /* Optional: Style for search button */
-    #searchButton {
-        padding: 10px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
+                .user-profile .dropdown-menu a:hover {
+                    background-color: #f1f1f1;
+                }
 </style>
 
-<!-- Add search input to your dashboard -->
-<div class="search-container">
-    <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search...">
-    <button id="searchButton" onclick="searchFunction()">Search</button>
-</div>
-
-
-
-<div id="main">
-
-    <div id='calendar'></div>
-
-
-
-    @section scripts {
-        <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
-
-        <script>
-            $(document).ready(function () {
-                $('#calendar').fullCalendar({
-                    defaultView: 'month',
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,agendaWeek,agendaDay'
-                    },
-                    selectable: true,
-                    selectHelper: true,
-                    editable: true,
-                    eventLimit: true,
-                    events: [
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">Your Website</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav flex-grow-1">
+                    @if (!string.IsNullOrEmpty(role))
+                    {
+                        if (role == "admin")
                         {
-                            title: 'Event 1',
-                            start: '2023-10-01'
-                        },
-                        {
-                            title: 'Event 2',
-                            start: '2023-10-05',
-                            end: '2023-10-07'
-                        },
-                        {
-                            title: 'Event 3',
-                            start: '2023-10-09T12:30:00',
-                            allDay: false
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Room" asp-action="Index">Room</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="Index">Reservation</a>
+                            </li>
                         }
-                        // add more events here...
-                    ]
-                });
-            });
+                        else if (role == "user")
+                        {
+                            <!-- Add navigation links for user role -->
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">Profile</a>
+                            </li>
+                        }
+                    } </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        </script>
-    }
-</div>
+    <!-- Add user profile section -->
+    <div class="user-profile">
+        <div class="user-details" onclick="toggleDropdown()">
+            <img src="~/img/User icon.jpg">
+            <div class="username">Username</div>
+            <div class="dropdown-caret">&#9660;</div>
+        </div>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="#">Edit Profile</a>
+            <a href="#">Settings</a>
+            <!-- Add more dropdown options as needed -->
+        </div>
+    </div>
+
+    <!-- Add search input to your dashboard -->
+    <div class="search-container">
+        <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search...">
+        <button id="searchButton" onclick="searchFunction()">Search</button>
+    </div>
+
+    <div id="main">
+        <div id='calendar'></div>
+
+        @section scripts {
+            <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+            <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
+            <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+
+            <script>
+                $(document).ready(function () {
+                    $('#calendar').fullCalendar({
+                        defaultView: 'month',
+                        header: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'month,agendaWeek,agendaDay'
+                        },
+                        selectable: true,
+                        selectHelper: true,
+                        editable: true,
+                        eventLimit: true,
+                        events: [
+                            {
+                                title: 'Event 1',
+                                start: '2023-10-01'
+                            },
+                            {
+                                title: 'Event 2',
+                                start: '2023-10-05',
+                                end: '2023-10-07'
+                            },
+                            {
+                                title: 'Event 3',
+                                start: '2023-10-09T12:30:00',
+                                allDay: false
+                            }
+                            // add more events here...
+                        ]
+                    });
+                });
+
+                function toggleDropdown() {
+                    var dropdownMenu = document.getElementById('dropdownMenu');
+                    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+                }
+            </script>
+        }
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+
 

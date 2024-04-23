@@ -23,10 +23,31 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
             return View();
         }
 
-        public IActionResult Homepage()
+        public IActionResult AboutUs()
         {
             return View();
         }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        public IActionResult News()
+        {
+            return View();
+        }
+
+        public IActionResult Homepage()
+        {
+            var role = "admin"; // Or retrieve the actual role from your authentication system
+
+            ViewData["Role"] = role;
+
+            return View();
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

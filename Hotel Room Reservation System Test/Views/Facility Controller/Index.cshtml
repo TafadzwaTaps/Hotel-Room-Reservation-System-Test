@@ -1,5 +1,29 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model List<Hotel_Room_Reservation_System_Test.Models.Facility>
+
+<h1>Facilities</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var facility in Model)
+        {
+            <tr>
+                <td>@facility.Id</td>
+                <td>@facility.Name</td>
+                <td>@facility.Description</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@facility.Id">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@facility.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@facility.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
