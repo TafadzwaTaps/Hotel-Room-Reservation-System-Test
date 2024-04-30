@@ -105,7 +105,7 @@ public class AccountController : Controller
                 var claims = new List<Claim>
                 {
                 new Claim(ClaimTypes.Name, model.Username ?? string.Empty),
-                new Claim(ClaimTypes.Role, user.Role)
+                new Claim(ClaimTypes.Role, user.Role ?? string.Empty)
                 };
 
                 var identity = new ClaimsIdentity(claims, "login");

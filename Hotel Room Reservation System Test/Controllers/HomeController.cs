@@ -40,7 +40,7 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
 
         public IActionResult Homepage()
         {
-            var role = "admin"; // Or retrieve the actual role from your authentication system
+            var role = "Admin"; // Or retrieve the actual role from your authentication system
 
             ViewData["Role"] = role;
 
