@@ -71,6 +71,12 @@
             padding: 10px 0;
             text-align: center;
         }
+
+        .search-container {
+            margin-left: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -112,6 +118,12 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User</a>
                             </li>
+                            <li>
+                                <div class="search-container">
+                                    <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search...">
+                                    <button id="searchButton" onclick="searchFunction()">Search</button>
+                                </div>
+                            </li>                       
                         }
                         else if (role == "User")
                         {
@@ -136,6 +148,12 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">Profile</a>
                             </li>
+                            <li>
+                                <div class="search-container">
+                                    <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search...">
+                                    <button id="searchButton" onclick="searchFunction()">Search</button>
+                                </div>
+                            </li>                         
                         }
                     }
                    

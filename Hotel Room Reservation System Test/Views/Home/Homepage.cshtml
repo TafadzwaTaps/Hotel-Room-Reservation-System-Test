@@ -3,6 +3,7 @@
 }
 
 <style>
+
     /* Add custom styles for user profile */
     .user-profile {
         position: absolute;
@@ -84,39 +85,45 @@
                 margin-top: 30px;
             }
 
-    .book {
-        background-color: #007bff;
-        color: #fff;
-        padding: 80px 0;
-        text-align: center;
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 20px;
     }
 
-        .book .text h1 {
-            font-size: 36px;
+    input {
+        outline: none;
+        border: none;
+        width: 100%;
+    }
+
+    .book {
+        padding: 40px 0;
+        background: #282834;
+        color: #fff;
+    }
+
+    h1 {
+        font-family: serif;
+    }
+
+    .book h1 {
+        font-size: 28px;
+    }
+
+        .book h1 span {
+            color: #7fc142;
+        }
+
+    .book input {
+        padding: 20px;
+    }
+
+        .book input:nth-last-child(1) {
+            background: #7fc142;
             color: #fff;
-            margin-bottom: 20px;
         }
 
-        .book .form {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-            .book .form input,
-            .book .form button {
-                padding: 15px;
-                margin-bottom: 15px;
-                border: none;
-                border-radius: 5px;
-                font-size: 16px;
-                width: 100%;
-            }
-
-            .book .form button {
-                background-color: #ffc107;
-                color: #333;
-                cursor: pointer;
-            }
 
     footerContent {
         background: #282834;
@@ -157,13 +164,46 @@
         footerContent label {
             margin: 20px 0;
         }
+
+    /* Rooms */
+    .rooms {
+        position: relative;
+    }
+
+        .rooms .text {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-top: none;
+            padding: 30px;
+        }
+
+        .rooms i {
+            font-size: 12px;
+            color: #fbb234;
+            margin: 15px 0;
+            margin-right: 5px;
+        }
+
+        .rooms p {
+            margin: 20px 0;
+            opacity: 0.7;
+        }
+
+        .rooms h3 {
+            font-size: 30px;
+            line-height: 20px;
+            margin-left: 20px;
+            font-weight: 500;
+            color: #7fc142;
+        }
+
+            .rooms h3 span {
+                font-size: 15px;
+                font-weight: 400;
+                color: #000;
+            }
 </style>
 
 <body>
-    <div class="search-container">
-        <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search...">
-        <button id="searchButton" onclick="searchFunction()">Search</button>
-    </div>
     <!-- Add user profile section -->
     <div class="user-profile">
         <div class="user-details" onclick="toggleDropdown()">

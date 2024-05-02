@@ -77,7 +77,7 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
             return View(room);
         }
 
-        public ActionResult Delete(int id)
+        public ActionResult Cancel(int id)
         {
             var room = _dbContext.Room.FirstOrDefault(r => r.Id == id);
             if (room == null)
