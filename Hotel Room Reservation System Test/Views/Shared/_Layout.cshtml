@@ -56,8 +56,8 @@
 
         /* Container styles */
         .container {
-            padding-top: 20px;
-            padding-bottom: 20px;
+            padding-top: 15px;
+            padding-bottom: 15px;
         }
 
         /* Footer styles */
@@ -73,9 +73,19 @@
         }
 
         .search-container {
-            margin-left: 20px;
-            padding-top: 20px;
-            padding-bottom: 20px;
+            margin-top: 5px;
+            margin-left: 15px;
+            display: flex; /* Make the container a flexbox */
+            align-items: center; /* Align search bar vertically in the center */
+            width: 100%; /* Make the container take up full width */
+            border: 1px solid #000;
+            
+        }
+
+        input {
+            outline: none;
+            border: 3px solid #000;
+            flex: 1; /* Make the input element expand to fill remaining space */
         }
     </style>
 </head>
@@ -110,7 +120,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="News">News</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About Us</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>

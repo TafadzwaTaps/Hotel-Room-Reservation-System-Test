@@ -1,0 +1,208 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+        }
+
+        html {
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        .column {
+            float: left;
+            width: 33.3%;
+            margin-bottom: 16px;
+            padding: 0 8px;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin: 8px;
+        }
+
+        .about-section {
+            padding: 50px;
+            text-align: center;
+            background-color: #474e5d;
+            color: white;
+        }
+
+        .container {
+            padding: 0 16px;
+        }
+
+            .container::after, .row::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+
+        .title {
+            color: grey;
+        }
+
+        .button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+        }
+
+            .button:hover {
+                background-color: #555;
+            }
+
+        .about-section {
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 800px;
+            text-align: justify;
+        }
+
+            .about-section h1 {
+                font-size: 36px;
+                color: #333;
+                margin-bottom: 20px;
+                text-align: center;
+                color: white;
+            }
+
+            .about-section h2 {
+                font-size: 24px;
+                color: black;
+                margin-top: 30px;
+            }
+
+            .about-section p {
+                font-size: 18px;
+                color: white;
+                line-height: 1.6;
+
+            }
+
+            .about-section ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+                .about-section ul li {
+                    font-size: 16px;
+                    color: #fff;
+                    margin-bottom: 10px;
+                }
+
+                    .about-section ul li strong {
+                        font-weight: bold;
+                        color: #fff;
+                    }
+
+    </style>
+</head>
+<body>
+    <div class="about-section">
+        <h1>About Us</h1>
+        <p>Welcome to Our Hotel Room Reservation System</p>
+        <p>At our Hotel Room Reservation System, we pride ourselves on offering seamless and convenient booking experiences for travelers worldwide. Our platform serves as the gateway to a world of comfort, luxury, and unparalleled hospitality.</p>
+        <h2>Who We Are:</h2>
+        <p>We are a dedicated team of hospitality experts, software engineers, and customer service enthusiasts who share a common goal: to redefine the way travelers book their accommodations. With a passion for innovation and a commitment to excellence, we have created a platform that simplifies the reservation process while ensuring that every guest finds their perfect stay with ease.</p>
+        <h2>What We Do:</h2>
+        <p>Our Hotel Room Reservation System provides a comprehensive solution for both travelers and hoteliers. For travelers, we offer a user-friendly interface where they can explore a wide range of accommodations, from cozy boutique hotels to luxurious resorts, and make hassle-free bookings in just a few clicks. Our advanced search filters allow users to tailor their search based on preferences such as location, price range, amenities, and more, ensuring that they find the perfect room to suit their needs.</p>
+        <p>For hoteliers, our platform offers a powerful yet intuitive management system that streamlines operations and maximizes revenue potential. From managing room inventory and rates to processing bookings and generating insightful reports, our system empowers hoteliers to take control of their business and deliver exceptional guest experiences at every touchpoint.</p>
+        <h2>Why Choose Us:</h2>
+        <ul>
+            <li><strong>Seamless Booking Process:</strong> Our user-friendly interface and intuitive design make booking a room quick and easy, saving travelers time and hassle.</li>
+            <li><strong>Wide Range of Options:</strong> With access to a diverse selection of accommodations worldwide, travelers can find the perfect room for their needs and budget.</li>
+            <li><strong>Reliable and Secure:</strong> Our platform prioritizes the security and privacy of our users, ensuring that their personal and payment information is always protected.</li>
+            <li><strong>Exceptional Customer Service:</strong> Our dedicated support team is available 24/7 to assist travelers with any inquiries or issues they may encounter before, during, or after their stay.</li>
+        </ul>
+        <p>Whether you're planning a weekend getaway, a business trip, or a family vacation, our Hotel Room Reservation System is here to make your booking experience seamless, stress-free, and unforgettable. Welcome to a world of effortless travel and unparalleled hospitality. Welcome to our Hotel Room Reservation System.</p>
+    </div>
+
+
+    <h2 style="text-align:center">Our Team</h2>
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <img src="/img/Arugu.jpg" alt="Evan" style="width:100%">
+                <div class="container">
+                    <h2>Evan Arugu</h2>
+                    <p class="title">Genius Programmer: The Genius Behind the Code</p>
+                    <p>
+
+                        In the world of programming, brilliance shines brightest in the hands of those who craft the digital realm with unparalleled mastery. Meet Evan, an alchemist of algorithms, a virtuoso of code.
+
+                        With a mind akin to a labyrinth, EVan navigates through complexities effortlessly, sculpting solutions where others see only chaos. Their code isn't just lines; it's a symphony of logic, a ballet of bytes, a masterpiece of innovation.
+
+                        In the tapestry of technology, Evan weaves threads of creativity, engineering marvels that redefine what's possible. Their commitment to excellence is unwavering, their quest for perfection never-ending.
+
+                        With each keystroke, Evan breathes life into the digital universe, shaping tomorrow's world today. They are not merely a programmer; they are the architect of tomorrow, the guardian of progress, the epitome of genius..
+                    </p>
+                    <p>airvans@gmail.com</p>
+                    <p><button class="button">Contact </button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <img src="/img/Rathious.jpg" alt="Rathious" style="width:100%">
+                <div class="container">
+                    <h2>Tafadzwa Tapera</h2>
+                    <p class="title">Scrum Master</p>
+                    <p>
+                        In the fast-paced world of agile development, leadership isn't just about guiding teams; it's about empowering them to soar. Enter Tafadzwa, a beacon of inspiration, a catalyst for change.
+
+                        With a heart fueled by passion and a mind as agile as the methodologies they champion, Tafadzwa leads by example. They don't just preach the virtues of agility; they embody them in every action, every decision.
+
+                        As the orchestrator of collaboration, Tafadzwa harmonizes the talents of individuals into a symphony of productivity. They cultivate an environment where innovation flourishes, where teams thrive, where excellence becomes the norm.
+
+                        Beyond the scrum board, Tafadzwa is a mentor, a coach, a trusted guide on the journey to greatness. They don't just remove obstacles; they pave the way for success, illuminating the path forward with unwavering dedication.
+                    </p>
+                    <p>tafadzwa@gmail.com</p>
+                    <p><button class="button">Contact</button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <img src="/img/Panashe Chinyanga.jpg" alt="Panashe" style="width:100%">
+                <div class="container">
+                    <h2>Panashe Chinyanga</h2>
+                    <p class="title">Product Owner</p>
+                    <p>
+                        Visionary Leadership: The Impact of Panashe Chinyanga as Product Owner
+
+                        In the dynamic landscape of our project, one figure stands out as the guiding force behind its evolution - Panashe, our esteemed Product Owner. With a blend of strategic vision and unwavering dedication, Panashe navigates the complexities of product development with grace and foresight.
+
+                        At the heart of Panashe's approach lies a deep understanding of our users' needs and aspirations. Through meticulous research and empathetic insight, she uncovers hidden opportunities and transforms them into compelling product features. Panashe doesn't just define requirements; she crafts experiences that resonate with our users on a profound level.
+
+                        Beyond mere ideation, Panashe is the architect of our product strategy, charting the course for success with clarity and purpose. Her roadmap isn't just a document; it's a testament to her visionary leadership, guiding our team through the ever-changing landscape of market demands and technological advancements.
+
+                        But Panashe's impact goes beyond the boardroom. She is a catalyst for collaboration, bridging the gap between stakeholders and development teams with open communication and mutual respect. Her ability to inspire and align diverse perspectives ensures that our project remains focused on its core mission, even amidst the challenges of execution..
+                    </p>
+                    <p>Panashe.c@gmail.com</p>
+                    <p><button class="button">Contact</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

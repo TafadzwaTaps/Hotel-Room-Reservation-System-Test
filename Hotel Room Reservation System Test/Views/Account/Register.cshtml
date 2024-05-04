@@ -3,75 +3,189 @@
 @{
     ViewData["Title"] = "Register";
 }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
 
-<h1>Register</h1>
+    body {
+        justify-content: center;
+        min-height: 100vh;
+        margin-bottom: 405px;
+    }
 
-<h4>RegisterView</h4>
+    .wrapper {
+        position: absolute;
+        width: 350px; /* Adjusted width */
+        background: #000;
+        box-shadow: 0 0 50px #FFC300;
+        border-radius: 20px;
+        padding: 20px; /* Adjusted padding */
+        overflow: hidden;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-top: -40px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 24px; /* Adjusted font size */
+        color: #fff;
+        text-align: center;
+        margin-bottom: 20px; /* Adjusted margin */
+    }
+
+    .form-group {
+        position: relative;
+        margin: 20px 0; /* Adjusted margin */
+        border-bottom: 2px solid #fff;
+    }
+
+        .form-group label {
+            position: absolute;
+            top: 10px; /* Adjusted position */
+            left: 5px;
+            font-size: 14px; /* Adjusted font size */
+            color: #fff;
+            pointer-events: none;
+            transition: .3s;
+        }
+
+        .form-group input {
+            width: 100%;
+            height: 30px; /* Adjusted height */
+            font-size: 14px; /* Adjusted font size */
+            color: #000; /* Changed text color to black */
+            padding: 5px;
+            background: transparent;
+            border: none;
+            outline: none;
+            margin-top: 10px; /* Adjusted margin */
+        }
+
+            .form-group input:focus ~ label,
+            .form-group input:valid ~ label {
+                top: -20px; /* Adjusted position */
+                font-size: 12px; /* Adjusted font size */
+                color: #0ef; /* Adjusted color */
+            }
+
+    .btn {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        background: #FFC300;
+        box-shadow: 0 0 10px #FFC300;
+        font-size: 16px;
+        color: #000;
+        font-weight: 500;
+        cursor: pointer;
+        border-radius: 30px;
+        border: none;
+        outline: none;
+        margin-top: 20px; /* Adjusted margin */
+    }
+
+    .br {
+        margin-top: 15px; /* Adjusted margin */
+    }
+
+    .signIn-link {
+        font-size: 14px;
+        text-align: center;
+        margin: 10px 0; /* Adjusted margin */
+    }
+
+        .signIn-link p {
+            color: #fff;
+        }
+
+            .signIn-link p a {
+                color: #FFC300;
+                text-decoration: none;
+                font-weight: 500;
+            }
+
+                .signIn-link p a:hover {
+                    text-decoration: underline;
+                }
+</style>
+
+
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Register">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword" class="control-label"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhysicalAddress" class="control-label"></label>
-                <input asp-for="PhysicalAddress" class="form-control" />
-                <span asp-validation-for="PhysicalAddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Role" class="control-label"></label>
-                <select asp-for="Role" class="form-control">
-                    <option value="User">User</option>
-                    <option value="Admin">Admin</option>
-                </select>
-                <span asp-validation-for="Role" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Register</button>
-            <div class="signIn-link">
-                <p>Already have an account? <a asp-action="Login" asp-controller="Account" class="signInBtn-link">Login</a></p>
-            </div>
-        </form>
+    <div class="wrapper">
+        <div class="form-wrapper sign-in">
+            <h1>Register</h1>
+            <form asp-action="Register">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Username" class="control-label"></label>
+                    <input asp-for="Username" class="form-control" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="control-label"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhysicalAddress" class="control-label"></label>
+                    <input asp-for="PhysicalAddress" class="form-control" />
+                    <span asp-validation-for="PhysicalAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Role" class="control-label"></label>
+                    <select asp-for="Role" class="form-control">
+                        <option value="User">User</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                    <span asp-validation-for="Role" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+                <div class="signIn-link">
+                    <p>Already have an account? <a asp-action="Login" asp-controller="Account" class="signInBtn-link">Login</a></p>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -1,6 +1,33 @@
 ﻿
 @model Hotel_Room_Reservation_System_Test.Models.Room
 
+<style>
+    /* Custom CSS styles for labels */
+    .form-group label.control-label {
+        color: #fff; /* Label text color (white) */
+        font-weight: bold; /* Bolden the label text */
+        font-size: 18px; /* Increase label font size */
+    }
+
+    /* Hover effect for form fields */
+    .form-control:hover {
+        background-color: #f8f9fa; /* Background color on hover */
+    }
+
+    h1 {
+        color: white; /* Changed the title color to white */
+        background-color: gray; /* Added a background color for the title */
+        border-radius: 5px; /* Added border-radius to the title */
+    }
+
+    h4 {
+        color: white; /* Changed the title color to white */
+        background-color: #007bff; /* Added a background color for the title */
+        border-radius: 5px; /* Added border-radius to the title */
+    }
+
+</style>
+
 <h1>Create Room</h1>
 
 <form asp-action="Create">
@@ -26,8 +53,8 @@
     </div>
     <div class="form-group">
         <label asp-for="IsAvailable">Is Available</label>
-        <input asp-for="IsAvailable" class="form-control" />
-        <span asp-validation-for="IsAvailable" class="text-danger"></span>
+        <input asp-for="IsAvailable" class="checkbox" />
+        <span asp-validation-for="IsAvailable" class="checkbox"></span>
     </div>
     <button type="submit" class="btn btn-primary">Create</button>
 </form>

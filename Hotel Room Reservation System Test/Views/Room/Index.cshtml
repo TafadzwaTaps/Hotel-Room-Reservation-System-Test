@@ -5,37 +5,54 @@
 }
 
 <style>
-    th, td {
-        padding: 10px;
-        text-align: left;
+    /* Reset default margin and padding */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
-    th {
-        background-color: #f2f2f2;
+    /* Apply styles to the table */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
     }
 
-    .btn {
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-size: 20px; /* Changed font size to 20px */
+            color: white; /* Changed text color to white */
+        }
+
+        .table th {
+            background-color: dimgray;
+            font-size: 18px; /* Changed heading size to 18px */
+        }
+
+    /* Style the "Create New" button */
+    .create-button {
+        display: inline-block;
         padding: 10px 20px;
-        margin: 5px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .btn-primary {
         background-color: #007bff;
-        color: #fff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-bottom: 20px;
     }
 
-    .btn-success {
-        background-color: #28a745;
-        color: #fff;
+        .create-button:hover {
+            background-color: #0056b3;
+        }
+
+    h1 {
+        color: white; /* Changed the title color to white */
+        background-color: gray; /* Added a background color for the title */
+        border-radius: 5px; /* Added border-radius to the title */
     }
 
-    .btn-secondary {
-        background-color: #6c757d;
-        color: #fff;
-    }
 </style>
 
 <h1>Rooms</h1>

@@ -18,7 +18,6 @@ namespace Hotel_Room_Reservation_System_Test.Databases
         public DbSet<Review> Review { get; set; }
         public DbSet<Facility> Facility { get; set; }
         public DbSet<User> User { get; set; }
-        public DbSet<RoomType> RoomType { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
         public DbSet<CancellationPolicy> CancellationPolicy { get; set; }
 
@@ -40,7 +39,6 @@ namespace Hotel_Room_Reservation_System_Test.Databases
             modelBuilder.Entity<Payment>().HasKey(or => or.Id);
             modelBuilder.Entity<Review>().HasKey(s => s.Id);
             modelBuilder.Entity<Facility>().HasKey(r => r.Id);
-            modelBuilder.Entity<RoomType>().HasKey(t => t.Id);
             modelBuilder.Entity<CancellationPolicy>().HasKey(v => v.id);
         }
     }

@@ -42,6 +42,7 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 _dbContext.Room.Add(room);
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(Details), new { id = room.Id });

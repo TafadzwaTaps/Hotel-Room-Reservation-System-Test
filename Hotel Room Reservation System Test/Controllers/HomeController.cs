@@ -38,6 +38,11 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
             return View();
         }
 
+        public IActionResult Services()
+        {
+            return View();
+        }
+
         public IActionResult Homepage()
         {
             var role = "Admin"; // Or retrieve the actual role from your authentication system

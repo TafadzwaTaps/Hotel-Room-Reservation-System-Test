@@ -1,4 +1,43 @@
 ﻿@model IEnumerable<Hotel_Room_Reservation_System_Test.Models.CancellationPolicy>
+    <style>
+    /* Reset default margin and padding */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Apply styles to the table */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+    /* Style the "Create New" button */
+    .create-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+        .create-button:hover {
+            background-color: #0056b3;
+        }
 
 <h1>Cancellation Policies</h1>
 

@@ -113,7 +113,14 @@ public class AccountController : Controller
                 var props = new AuthenticationProperties();
                 HttpContext.SignInAsync(principal, props);
 
-                HttpContext.Session.SetString("Role", user.Role);
+                if (!string.IsNullOrEmpty(user.UserName))
+                {
+                    HttpContext.Session.SetString("Username", user.UserName);
+                }
+                if (!string.IsNullOrEmpty(user.Role))
+                {
+                    HttpContext.Session.SetString("Role", user.Role);
+                }
                 // Redirect to a success page after setting cookies or session variables
                 return RedirectToAction("HomePage", "home");
             }
