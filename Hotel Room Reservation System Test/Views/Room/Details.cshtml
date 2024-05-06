@@ -1,51 +1,18 @@
 ﻿@model Hotel_Room_Reservation_System_Test.Models.Room
 
-<style>
-    h4 {
-        margin-bottom: 10px;
-    }
-
-    .btn {
-        padding: 10px 20px;
-        margin: 5px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .btn-success {
-        background-color: #28a745;
-        color: #fff;
-    }
-
-    .btn-secondary {
-        background-color: #6c757d;
-        color: #fff;
-    }
-</style>
-
 <h1>Room Details</h1>
 
 <div>
-    <h4>Name: @Model.Name</h4>
-    <h4>Description: @Model.Description</h4>
-    <h4>Room Capacity: @Model.RoomCapacity</h4>
-    <h4>Price: @Model.Price</h4>
-    <h4>Is Available: @Model.IsAvailable</h4>
+    <dl class="row">
+        <dt class="col-sm-2">Name:</dt>
+        <dd class="col-sm-10">@Model.Name</dd>
+        <dt class="col-sm-2">Description:</dt>
+        <dd class="col-sm-10">@Model.Description</dd>
+        <dt class="col-sm-2">Room Capacity:</dt>
+        <dd class="col-sm-10">@Model.RoomCapacity</dd>
+        <dt class="col-sm-2">Price:</dt>
+        <dd class="col-sm-10">@Model.Price</dd>
+        <dt class="col-sm-2">Is Available:</dt>
+        <dd class="col-sm-10">@Model.IsAvailable</dd>
+    </dl>
 </div>
-
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-
-@{
-    if (Model.IsAvailable)
-    {
-        <a asp-action="Reserve" asp-route-roomId="@Model.Id" class="btn btn-success">Reserve</a>
-    }
-    else
-    {
-        <button disabled class="btn btn-secondary">Not Available</button>
-    }
-}

@@ -4,7 +4,7 @@ namespace Hotel_Room_Reservation_System_Test.Models
 {
     public class Reservation
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         public int RoomId { get; set; }

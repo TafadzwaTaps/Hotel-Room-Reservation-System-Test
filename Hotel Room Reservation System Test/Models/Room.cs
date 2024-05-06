@@ -1,10 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Hotel_Room_Reservation_System_Test.Models
 {
     public class Room
     {
-        public int Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string  Id { get; set; }
+        
+        public int userId { get; set; }
         [Required]
         public string? Name { get; set; }
         [Required]

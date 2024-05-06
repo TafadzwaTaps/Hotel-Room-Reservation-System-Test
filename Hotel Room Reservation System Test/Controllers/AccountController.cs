@@ -8,10 +8,11 @@ using System.Text;
 
 public class AccountController : Controller
 {
-    private readonly HotelDbContext _dbContext;
-    public AccountController(HotelDbContext dbContext)
+    // private readonly HotelDbContext _dbContext;
+    private readonly Accountservices _account;
+    public AccountController(Accountservices account)
     {
-        _dbContext = dbContext;
+        _account = account;
     }
 
     private readonly List<User> users = new List<User>();
@@ -30,7 +31,8 @@ public class AccountController : Controller
 
     private bool IsUsernameTaken(string username)
     {
-        return _dbContext.User.Any(user => user.UserName == username);
+        //return _dbContext.User.Any(user => user.UserName == username);
+        return _account.IsUsernameTaken(username);
     }
 
     [HttpGet]
@@ -53,7 +55,7 @@ public class AccountController : Controller
             // Check if the provided username is not null or empty
             if (!string.IsNullOrEmpty(user.Username))
             {
-                bool isUsernameTaken = IsUsernameTaken(user.Username);
+                bool isUsernameTaken = false;
 
                 if (isUsernameTaken)
                 {
@@ -73,8 +75,9 @@ public class AccountController : Controller
                     Role = user.Role,
                 };
 
-                _dbContext.User.Add(newUser); // Add the newUser object
-                _dbContext.SaveChanges();
+                // _dbContext.User.Add(newUser); // Add the newUser object
+                // _dbContext.SaveChanges();
+                _account.register(newUser);
 
                 // Redirect or perform other actions after successful registration.
                 return RedirectToAction("Login"); // Customize this as needed.
@@ -98,7 +101,10 @@ public class AccountController : Controller
         if (ModelState.IsValid)
         {
             var hashedPassword = (model.Password); // Hash the provided password
-            var user = _dbContext.User.FirstOrDefault(u => u.UserName == model.Username && u.PasswordHash == hashedPassword);
+            // var user = _dbContext.User.FirstOrDefault(u => u.UserName == model.Username && u.PasswordHash == hashedPassword);
+            
+
+            var user = _account.login(model.Username,model.Password);
 
             if (user != null)
             {
@@ -108,12 +114,12 @@ public class AccountController : Controller
                 new Claim(ClaimTypes.Role, user.Role ?? string.Empty)
                 };
 
-                var identity = new ClaimsIdentity(claims, "login");
-                var principal = new ClaimsPrincipal(identity);
-                var props = new AuthenticationProperties();
-                HttpContext.SignInAsync(principal, props);
+                // var identity = new ClaimsIdentity(claims, "login");
+                // var principal = new ClaimsPrincipal(identity);
+                // var props = new AuthenticationProperties();
+                // HttpContext.SignInAsync(principal, props);
 
-                HttpContext.Session.SetString("Role", user.Role);
+      //          HttpContext.Session.SetString("Role", user.Role);
                 // Redirect to a success page after setting cookies or session variables
                 return RedirectToAction("HomePage", "home");
             }
