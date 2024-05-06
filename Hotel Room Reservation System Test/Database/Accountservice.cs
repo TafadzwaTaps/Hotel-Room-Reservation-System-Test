@@ -9,19 +9,17 @@ public class Accountservices{
 
     public IMongoCollection<T> mongoCollection<T>(in string collection)
     {
-            var connect = new MongoClient("");
+            var connect = new MongoClient("mongodb+srv://Quicksly:f4PvWY5G3RtuZcQo@cluster0.d2muozt.mongodb.net/?retryWrites=true&w=majority");
             var db = connect.GetDatabase(database);
             return db.GetCollection<T>(collection);
 
     }
 
-    public string login(string username,string password){
+    public User login(string username,string password){
 
         var collect = mongoCollection<User>(collectionname);
 
-        collect.Find(x=>x.UserName==username && x.PasswordHash==password).FirstOrDefault();
-
-        return "success";
+        return collect.Find(x=>x.UserName==username && x.PasswordHash==password).FirstOrDefault();
 
     }
 
@@ -36,7 +34,7 @@ public class Accountservices{
 
     }
 
-    private bool IsUsernameTaken(string username)
+   public bool IsUsernameTaken(string username)
     {
         var collect = mongoCollection<User>(collectionname);
         var user = collect.Find(x=>x.UserName==username).FirstOrDefault();

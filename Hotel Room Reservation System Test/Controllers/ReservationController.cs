@@ -7,22 +7,23 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
 {
     public class ReservationController : Controller
     {
-        private readonly HotelDbContext _dbContext;
+        private readonly Reservationservice reservationservice;
 
-        public ReservationController(HotelDbContext dbContext)
+        public ReservationController(Reservationservice reservationservice)
         {
-            _dbContext = dbContext;
+            this.reservationservice = reservationservice;
         }
 
         public ActionResult Index()
         {
-            var reservations = _dbContext.Reservation.ToList();
+            var reservations = reservationservice.Reservations();
             return View(reservations);
         }
 
         public ActionResult Details(int id)
         {
-            var reservation = _dbContext.Reservation.FirstOrDefault(r => r.Id == id);
+            var i = id.ToString();
+            var reservation = reservationservice.Read(i);
             if (reservation == null)
             {
                 return NotFound();
@@ -41,8 +42,7 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Reservation.Add(reservation);
-                _dbContext.SaveChanges();
+                reservationservice.Add(reservation);
                 return RedirectToAction(nameof(Details), new { id = reservation.Id });
             }
             return View(reservation);
@@ -50,7 +50,8 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
 
         public ActionResult Edit(int id)
         {
-            var reservation = _dbContext.Reservation.FirstOrDefault(r => r.Id == id);
+            var i = id.ToString();
+            var reservation = reservationservice.edit(i);
             if (reservation == null)
             {
                 return NotFound();
@@ -62,15 +63,15 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Reservation reservation)
         {
-            if (id != reservation.Id)
+            var i = id.ToString();
+            if (i != reservation.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                _dbContext.Reservation.Update(reservation);
-                _dbContext.SaveChanges();
+                reservationservice.edit(i,reservation);
                 return RedirectToAction(nameof(Index));
             }
             return View(reservation);
@@ -78,7 +79,8 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
 
         public ActionResult Delete(int id)
         {
-            var reservation = _dbContext.Reservation.FirstOrDefault(r => r.Id == id);
+            var i = id.ToString();
+            var reservation = reservationservice.Delete(i);
             if (reservation == null)
             {
                 return NotFound();
@@ -90,11 +92,11 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var reservation = _dbContext.Reservation.FirstOrDefault(r => r.Id == id);
+            var i = id.ToString();
+            var reservation = reservationservice.ConfirmDelete(i);
             if (reservation != null)
             {
-                _dbContext.Reservation.Remove(reservation);
-                _dbContext.SaveChanges();
+                reservationservice.Delete(i);
             }          
             return RedirectToAction(nameof(Index));
         }
@@ -112,8 +114,7 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
                 UserId = userId
             };
 
-            _dbContext.Reservation.Add(reservation);
-            _dbContext.SaveChanges();
+            reservationservice.Add(reservation);
 
             return RedirectToAction("Index");
         }

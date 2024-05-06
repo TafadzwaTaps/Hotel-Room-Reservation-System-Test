@@ -8,22 +8,26 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
     
     public class RoomController : Controller
     {
-        private readonly HotelDbContext _dbContext;
+        // private readonly HotelDbContext _dbContext;
+        private readonly Roomservice _roomservice;
 
-        public RoomController(HotelDbContext dbContext)
+        // List<Room> rooms1 = new List<Room>();
+
+        public RoomController(Roomservice roomservice)
         {
-            _dbContext = dbContext;
+            _roomservice = roomservice;;
         }
 
         public ActionResult Index()
         {
-            var rooms = _dbContext.Room.ToList();
+           var rooms = _roomservice.Rooms();
             return View(rooms);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            var room = _dbContext.Room.FirstOrDefault(r => r.Id == id);
+            var room = _roomservice.Read(id);
+
             if (room == null)
             {
                 return NotFound();
@@ -42,16 +46,17 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Room.Add(room);
-                _dbContext.SaveChanges();
+                _roomservice.Add(room);
+
                 return RedirectToAction(nameof(Details), new { id = room.Id });
             }
             return View(room);
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            var room = _dbContext.Room.FirstOrDefault(r => r.Id == id);
+            var room = _roomservice.edit(id);
+
             if (room == null)
             {
                 return NotFound();
@@ -61,7 +66,7 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Room room)
+        public ActionResult Edit(string id, Room room)
         {
             if (id != room.Id)
             {
@@ -70,16 +75,15 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
 
             if (ModelState.IsValid)
             {
-                _dbContext.Room.Update(room);
-                _dbContext.SaveChanges();
+                _roomservice.edit(id,room);
                 return RedirectToAction(nameof(Index));
             }
             return View(room);
         }
 
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
-            var room = _dbContext.Room.FirstOrDefault(r => r.Id == id);
+            var room = _roomservice.edit(id);
             if (room == null)
             {
                 return NotFound();
@@ -89,13 +93,13 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            var room = _dbContext.Room.FirstOrDefault(r => r.Id == id);
+            // var room = _dbContext.Room.FirstOrDefault(r => r.Id == id);
+            var room = _roomservice.edit(id);
             if (room != null)
             {
-                _dbContext.Room.Remove(room);
-                _dbContext.SaveChanges();
+                _roomservice.Delete(id);
             }
             
             return RedirectToAction(nameof(Index));
