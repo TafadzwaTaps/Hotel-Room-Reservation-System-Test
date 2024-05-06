@@ -1,35 +1,93 @@
 ﻿@model IEnumerable<Hotel_Room_Reservation_System_Test.Models.Room>
 
+@{
+    ViewData["Title"] = "Rooms";
+}
+
+<style>
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+    }
+</style>
+
 <h1>Rooms</h1>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Room Capacity</th>
-            <th>Price</th>
-            <th>Is Available</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomCapacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsAvailable)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var room in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@room.Name</td>
-                <td>@room.Description</td>
-                <td>@room.RoomCapacity</td>
-                <td>@room.Price</td>
-                <td>@room.IsAvailable</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@room.Id">Details</a> |
-                    <a asp-action="Edit" asp-route-id="@room.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@room.Id">Delete</a>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomCapacity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsAvailable)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<a asp-action="Create">Create New</a>
+<a asp-action="Create" class="btn btn-primary">Create New</a>

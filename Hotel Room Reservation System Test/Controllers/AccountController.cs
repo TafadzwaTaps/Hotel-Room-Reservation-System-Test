@@ -108,11 +108,11 @@ public class AccountController : Controller
 
             if (user != null)
             {
-                // var claims = new List<Claim>
-                // {
-                // new Claim(ClaimTypes.Name, model.Username ?? string.Empty),
-                // new Claim(ClaimTypes.Role, user.Role)
-                // };
+                var claims = new List<Claim>
+                {
+                new Claim(ClaimTypes.Name, model.Username ?? string.Empty),
+                new Claim(ClaimTypes.Role, user.Role ?? string.Empty)
+                };
 
                 // var identity = new ClaimsIdentity(claims, "login");
                 // var principal = new ClaimsPrincipal(identity);

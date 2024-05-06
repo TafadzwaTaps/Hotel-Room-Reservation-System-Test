@@ -1,18 +1,9 @@
-﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
-@using Microsoft.AspNetCore.Http
-
-@{
-    ViewData["Title"] = "Hotel Room Welcomes You";
-
-    var httpContext = HttpContextAccessor.HttpContext;
-    var role = httpContext?.Session.GetString("Role");
-}
-
-@{
+﻿@{
     ViewData["Title"] = "Hotel Room Welcomes You";
 }
 
 <style>
+
     /* Add custom styles for user profile */
     .user-profile {
         position: absolute;
@@ -59,56 +50,160 @@
                 .user-profile .dropdown-menu a:hover {
                     background-color: #f1f1f1;
                 }
+
+    .home {
+        background-color: #f8f9fa;
+        padding: 80px 0;
+        text-align: center;
+    }
+
+        .home .item {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+            .home .item img {
+                width: 200px;
+                height: auto;
+                margin-bottom: 20px;
+            }
+
+            .home .item .text h1 {
+                font-size: 36px;
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+            .home .item .text p {
+                font-size: 18px;
+                color: #666;
+                line-height: 1.6;
+            }
+
+            .home .item .flex {
+                margin-top: 30px;
+            }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 20px;
+    }
+
+    input {
+        outline: none;
+        border: none;
+        width: 100%;
+    }
+
+    .book {
+        padding: 40px 0;
+        background: #282834;
+        color: #fff;
+    }
+
+    h1 {
+        font-family: serif;
+    }
+
+    .book h1 {
+        font-size: 28px;
+    }
+
+        .book h1 span {
+            color: #7fc142;
+        }
+
+    .book input {
+        padding: 20px;
+    }
+
+        .book input:nth-last-child(1) {
+            background: #7fc142;
+            color: #fff;
+        }
+
+
+    footerContent {
+        background: #282834;
+        color: #b6b7b9;
+        padding: 10% 0 5% 0;
+    }
+
+        footerContent .grid {
+            grid-template-columns: 6fr 3fr 3fr;
+        }
+
+        footerContent p {
+            color: #b6b7b9;
+            font-size: 15px;
+            line-height: 25px;
+        }
+
+        footerContent .icon i {
+            margin: 20px 20px 20px 0;
+            color: #b6b7b9;
+        }
+
+        footerContent h2 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        footerContent li {
+            margin-bottom: 20px;
+        }
+
+        footerContent i {
+            color: #7fc142;
+            margin: 20px 0;
+            margin-right: 20px;
+        }
+
+        footerContent label {
+            margin: 20px 0;
+        }
+
+    /* Rooms */
+    .rooms {
+        position: relative;
+    }
+
+        .rooms .text {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-top: none;
+            padding: 30px;
+        }
+
+        .rooms i {
+            font-size: 12px;
+            color: #fbb234;
+            margin: 15px 0;
+            margin-right: 5px;
+        }
+
+        .rooms p {
+            margin: 20px 0;
+            opacity: 0.7;
+        }
+
+        .rooms h3 {
+            font-size: 30px;
+            line-height: 20px;
+            margin-left: 20px;
+            font-weight: 500;
+            color: #7fc142;
+        }
+
+            .rooms h3 span {
+                font-size: 15px;
+                font-weight: 400;
+                color: #000;
+            }
 </style>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="#">Your Website</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav flex-grow-1">
-                    @if (!string.IsNullOrEmpty(role))
-                    {
-                        if (role == "admin")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Room" asp-action="Index">Room</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="Index">Reservation</a>
-                            </li>
-                        }
-                        else if (role == "user")
-                        {
-                            <!-- Add navigation links for user role -->
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">Profile</a>
-                            </li>
-                        }
-                    } </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
     <!-- Add user profile section -->
     <div class="user-profile">
         <div class="user-details" onclick="toggleDropdown()">
@@ -124,10 +219,235 @@
     </div>
 
     <!-- Add search input to your dashboard -->
-    <div class="search-container">
-        <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search...">
-        <button id="searchButton" onclick="searchFunction()">Search</button>
-    </div>
+  
+
+    <br />
+
+    <section class="home">
+        <div class="content">
+            <div class="item">
+                <img src="~/img/Hotel Logo.jpg" alt="Hotel Logo">
+                <div class="text">
+                    <h1>Welcome to Our Hotel</h1>
+                    <p>
+                        Discover comfort, luxury, and unparalleled service at our hotel. Whether you're traveling for business or leisure, we have everything you need to make your stay memorable.
+                    </p>
+                    <div class="flex">
+                        <button class="primary-btn">Explore Rooms</button>
+                        <button class="secondary-btn">Contact Us</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="book">
+        <div class="container">
+            <div class="text">
+                <h1>Book Your Stay</h1>
+            </div>
+            <div class="form">
+                <form class="grid">
+                    <input type="date" placeholder="Arrival Date">
+                    <input type="date" placeholder="Departure Date">
+                    <input type="number" placeholder="Adults">
+                    <input type="number" placeholder="Children">
+                    <button class="primary-btn">Check Availability</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="rooms">
+        <div class="container top">
+            <div class="heading">
+                <h1>EXPOLRE</h1>
+                <h2>Our Rooms</h2>
+                <p>
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                </p>
+            </div>
+
+            <div class="content mtop">
+                <div class="image">
+                    <img src="~/img/room-1.jpg" alt="">
+                </div>
+                <div class="text">
+                    <h2>Suporior Rooms</h2>
+                    <div class="rate flex">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por incid.
+                    </p>
+                    <div class="button flex">
+                        <button class="primary-btn">BOOK NOW</button>
+                        <h3>$250 <span> <br> Per Night </span> </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="items">
+                <div class="image">
+                    <img src="~/img/room-2.jpg" alt="">
+                </div>
+                <div class="text">
+                    <h2>Suporior Rooms</h2>
+                    <div class="rate flex">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por incid.
+                    </p>
+                    <div class="button flex">
+                        <button class="primary-btn">BOOK NOW</button>
+                        <h3>$250 <span> <br> Per Night </span> </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="items">
+                <div class="image">
+                    <img src="~/img/room-3.jpg" alt="">
+                </div>
+                <div class="text">
+                    <h2>Suporior Rooms</h2>
+                    <div class="rate flex">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por incid.
+                    </p>
+                    <div class="button flex">
+                        <button class="primary-btn">BOOK NOW</button>
+                        <h3>$250 <span> <br> Per Night </span> </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="items">
+                <div class="image">
+                    <img src="~/img/room-4.jpg" alt="">
+                </div>
+                <div class="text">
+                    <h2>Suporior Rooms</h2>
+                    <div class="rate flex">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por incid.
+                    </p>
+                    <div class="button flex">
+                        <button class="primary-btn">BOOK NOW</button>
+                        <h3>$250 <span> <br> Per Night </span> </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="items">
+                <div class="image">
+                    <img src="~/img/room-5.jpg" alt="">
+                </div>
+                <div class="text">
+                    <h2>Suporior Rooms</h2>
+                    <div class="rate flex">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por incid.
+                    </p>
+                    <div class="button flex">
+                        <button class="primary-btn">BOOK NOW</button>
+                        <h3>$250 <span> <br> Per Night </span> </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="items">
+                <div class="image">
+                    <img src="~/img/room-6.jpg" alt="">
+                </div>
+                <div class="text">
+                    <h2>Suporior Rooms</h2>
+                    <div class="rate flex">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por incid.
+                    </p>
+                    <div class="button flex">
+                        <button class="primary-btn">BOOK NOW</button>
+                        <h3>$250 <span> <br> Per Night </span> </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="items">
+                <div class="image">
+                    <img src="~/img/room-7.jpg" alt="">
+                </div>
+                <div class="text">
+                    <h2>Suporior Rooms</h2>
+                    <div class="rate flex">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por incid.
+                    </p>
+                    <div class="button flex">
+                        <button class="primary-btn">BOOK NOW</button>
+                        <h3>$250 <span> <br> Per Night </span> </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="items">
+                <div class="image">
+                    <img src="~/img/room-8.jpg" alt="">
+                </div>
+                <div class="text">
+                    <h2>Suporior Rooms</h2>
+                    <div class="rate flex">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por incid.
+                    </p>
+                    <div class="button flex">
+                        <button class="primary-btn">BOOK NOW</button>
+                        <h3>$250 <span> <br> Per Night </span> </h3>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </section>
+    <script>
 
     <div id="main">
         <div id='calendar'></div>
@@ -177,10 +497,50 @@
             </script>
         }
     </div>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <footerContent>
+        <div class="container grid">
+            <div class="box">
+                <img src="images/logo-2.png" alt="">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+
+                <div class="icon">
+                    <i class="fa fa-facebook-f"></i>
+                    <i class="fa fa-instagram"></i>
+                    <i class="fa fa-twitter"></i>
+                    <i class="fa fa-youtube"></i>
+                </div>
+            </div>
+
+            <div class="box">
+                <h2>Links</h2>
+                <ul>
+                    <li>Company History</li>
+                    <li>About Us</li>
+                    <li>Contact Us</li>
+                    <li>Services</li>
+                    <li>Privacy Policy</li>
+                </ul>
+            </div>
+
+            <div class="box">
+                <h2>Contact Us</h2>
+                <p>
+                    Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por incid.
+                </p>
+                <i class="fa fa-location-dot"></i>
+                <label>1201 park street, Avenue, Dhanmondy, Dhaka. </label> <br>
+                <i class="fa fa-phone"></i>
+                <label>[88] 657 524 332</label> <br>
+                <i class="fa fa-envelope"></i>
+                <label>info@dentar.com</label> <br>
+            </div>
+        </div>
+    </footerContent>
 </body>
-
-

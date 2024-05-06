@@ -81,7 +81,7 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
             return View(room);
         }
 
-        public ActionResult Delete(string id)
+        public ActionResult Cancel(string id)
         {
             var room = _roomservice.edit(id);
             if (room == null)

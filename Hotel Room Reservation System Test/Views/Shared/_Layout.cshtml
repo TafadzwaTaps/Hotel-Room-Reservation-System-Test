@@ -1,4 +1,19 @@
-﻿@using Microsoft.AspNetCore.Http
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Hotel Room Welcomes You";
+
+    var httpContext = HttpContextAccessor.HttpContext;
+    var role = httpContext?.Session.GetString("Role");
+
+    // Debugging: Print out the retrieved role
+    Console.WriteLine($"Retrieved Role: {role}");
+}
+
+@{
+    ViewData["Title"] = "Hotel Room Welcomes You";
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,6 +71,12 @@
             padding: 10px 0;
             text-align: center;
         }
+
+        .search-container {
+            margin-left: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -69,39 +90,73 @@
 
                 <!-- Add the navigation links with conditional rendering -->
                 <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Room" asp-action="Index">Rooms</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="Index">Reservation</a>
-                    </li>     
-                    @{
-                        var role = ViewBag.Role as string;
-                    }
-                    @if (!string.IsNullOrEmpty(role) && role == "admin")
+                    @if (!string.IsNullOrEmpty(role))
                     {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Hotel">Hotel</a>
-                        </li>
+                        if (role == "Admin")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Room" asp-action="Index">Room</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="Index">Reservation</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="News">News</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User</a>
+                            </li>
+                            <li>
+                                <div class="search-container">
+                                    <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search...">
+                                    <button id="searchButton" onclick="searchFunction()">Search</button>
+                                </div>
+                            </li>                       
+                        }
+                        else if (role == "User")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li> 
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="News">News</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">Profile</a>
+                            </li>
+                            <li>
+                                <div class="search-container">
+                                    <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search...">
+                                    <button id="searchButton" onclick="searchFunction()">Search</button>
+                                </div>
+                            </li>                         
+                        }
                     }
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="News">News</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User</a>
-                    </li>
+                   
                 </ul>
 
             </div>
