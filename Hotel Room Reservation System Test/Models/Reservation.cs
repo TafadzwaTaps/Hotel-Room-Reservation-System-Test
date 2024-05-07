@@ -9,7 +9,7 @@ namespace Hotel_Room_Reservation_System_Test.Models
         [Required]
         public int RoomId { get; set; }
 
-        public string? UserId { get; set; }
+        public int UserId { get; set; }
 
         public DateTime CheckInDate { get; set; }
 
@@ -17,14 +17,14 @@ namespace Hotel_Room_Reservation_System_Test.Models
 
         public string? Status { get; set; }
         // Navigation property
-        public virtual Room Room { get; set; }
+        public virtual Room? Room { get; set; }
 
         public Reservation()
         {
    
         }
 
-        public Reservation(int _roomID, string _userID, DateTime _checkInDate, DateTime _checkoutDate, string _status)
+        public Reservation(int _roomID, int _userID, DateTime _checkInDate, DateTime _checkoutDate, string _status)
         {
             RoomId = _roomID;
             UserId = _userID;

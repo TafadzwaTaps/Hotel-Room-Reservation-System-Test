@@ -1,29 +1,42 @@
 ﻿@model Hotel_Room_Reservation_System_Test.Models.Reservation
 
 <style>
-    /* Custom CSS styles for labels */
-    .form-group label.control-label {
-        color: #fff; /* Label text color (white) */
-        font-weight: bold; /* Bolden the label text */
-        font-size: 16px; /* Increase label font size */
-    }
-
-    /* Hover effect for form fields */
-    .form-control:hover {
-        background-color: #f8f9fa; /* Background color on hover */
-    }
-
+    /* Custom CSS styles for reservation details */
     h1 {
-        color: white; /* Changed the title color to white */
-        background-color: gray; /* Added a background color for the title */
-        border-radius: 5px; /* Added border-radius to the title */
+        color: white; /* Title color */
+        font-size: 24px; /* Font size for the title */
     }
 
-    h4 {
-        color: white; /* Changed the title color to white */
-        background-color: #007bff; /* Added a background color for the title */
-        border-radius: 5px; /* Added border-radius to the title */
+    .row {
+        display: flex;
+        flex-wrap: wrap;
     }
+
+    .col-sm-2,
+    .col-sm-10 {
+        flex: 0 0 auto;
+        color: white; /* Text color for dt and dd elements */
+        font-size: 16px; /* Font size for dt and dd elements */
+    }
+
+    .col-sm-2 {
+        width: 16.66667%; /* Width for dt elements */
+        font-weight: bold; /* Bolden dt text */
+    }
+
+    .col-sm-10 {
+        width: 83.33333%; /* Width for dd elements */
+    }
+
+    /* Optional: Add spacing between dt and dd */
+    dt {
+        margin-bottom: 5px;
+    }
+
+    dd {
+        margin-bottom: 15px;
+    }
+
 </style>
 
 <h1>Reservation Details</h1>

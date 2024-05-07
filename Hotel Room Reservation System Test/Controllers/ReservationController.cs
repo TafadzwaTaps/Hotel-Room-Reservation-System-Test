@@ -102,14 +102,19 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
         public ActionResult Reserve(int roomId, DateTime checkInDate, DateTime checkOutDate)
         {
             // Retrieve user ID from claims
-            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userIdString = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (!int.TryParse(userIdString, out int userId))
+            {
+                return RedirectToAction("Index", "Home"); // Redirect to home page for simplicity
+            }
 
             var reservation = new Reservation
             {
                 RoomId = roomId,
                 CheckInDate = checkInDate,
                 CheckOutDate = checkOutDate,
-                UserId = userId
+                UserId = userId,
             };
 
             _dbContext.Reservation.Add(reservation);

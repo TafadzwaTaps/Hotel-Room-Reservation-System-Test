@@ -12,6 +12,7 @@ namespace Hotel_Room_Reservation_System_Test.Databases
         }
 
         public DbSet<Room> Room { get; set; }
+        public DbSet<RoomImages> RoomImages { get; set; }
         public DbSet<Reservation> Reservation { get; set; }
         public DbSet<InvoiceGeneration> InvoiceGeneration { get; set; }
         public DbSet<Payment> Payment { get; set; }
@@ -31,6 +32,7 @@ namespace Hotel_Room_Reservation_System_Test.Databases
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Room>().HasKey(b => b.Id);
+            modelBuilder.Entity<RoomImages>().HasKey(c => c.Id);
             modelBuilder.Entity<Hotel>().HasKey(h => h.Id);
             modelBuilder.Entity<Reservation>().HasKey(p => p.Id);
             modelBuilder.Entity<User>().HasKey(u => u.UserId);
