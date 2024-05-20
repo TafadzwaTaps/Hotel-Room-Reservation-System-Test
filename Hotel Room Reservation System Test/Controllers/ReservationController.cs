@@ -20,6 +20,7 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
             return View(reservations);
         }
 
+
         public ActionResult Details(int id)
         {
             var reservation = _dbContext.Reservation.FirstOrDefault(r => r.Id == id);
@@ -27,6 +28,7 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
             {
                 return NotFound();
             }
+            UpdateReservationStatus(reservation);
             return View(reservation);
         }
 
@@ -93,6 +95,7 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
             var reservation = _dbContext.Reservation.FirstOrDefault(r => r.Id == id);
             if (reservation != null)
             {
+
                 _dbContext.Reservation.Remove(reservation);
                 _dbContext.SaveChanges();
             }          
@@ -106,7 +109,7 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
 
             if (!int.TryParse(userIdString, out int userId))
             {
-                return RedirectToAction("Index", "Home"); // Redirect to home page for simplicity
+                return RedirectToAction("Index", "Home"); 
             }
 
             var reservation = new Reservation
@@ -121,6 +124,28 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
             _dbContext.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        private void UpdateReservationStatus(Reservation reservation)
+        {
+            var currentDate = DateTime.Now;
+
+            // Check if reservation is expired
+            if (reservation.CheckOutDate < currentDate && reservation.Status == "Reserved")
+            {
+                // Update room availability
+                var room = _dbContext.Room.FirstOrDefault(r => r.Id == reservation.RoomId);
+                if (room != null)
+                {
+                    room.IsAvailable = true;
+                }
+
+                // Update reservation status
+                reservation.Status = "Expired";
+
+                // Save changes to the database
+                _dbContext.SaveChanges();
+            }
         }
     }
 }
