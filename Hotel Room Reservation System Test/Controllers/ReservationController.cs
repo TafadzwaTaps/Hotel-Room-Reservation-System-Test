@@ -30,10 +30,13 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
                 return NotFound();
             }
 
+            var userId = GetCurrentUserId();
+
             var reservationViewModel = new ReservationViewModel
             {
                 RoomId = roomId,
                 RoomName = room.Name,
+                UserId = userId,
                 CheckInDate = checkInDate,
                 CheckOutDate = checkOutDate
             };
@@ -47,14 +50,12 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Get the current user's ID
-                var userId = GetCurrentUserId();
 
                 // Create reservation
                 var reservation = new Reservation
                 {
                     RoomId = model.RoomId,
-                    UserId = userId,
+                    UserId = model.UserId,
                     CheckInDate = model.CheckInDate,
                     CheckOutDate = model.CheckOutDate,
                     Status = "Reserved"
