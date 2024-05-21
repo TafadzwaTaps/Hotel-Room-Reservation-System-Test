@@ -2,6 +2,7 @@
 using Hotel_Room_Reservation_System_Test.Databases;
 using Hotel_Room_Reservation_System_Test.Models;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hotel_Room_Reservation_System_Test.Controllers
 {
@@ -20,34 +21,88 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
             return View(reservations);
         }
 
-
-        public ActionResult Details(int id)
+        [HttpGet]
+        public IActionResult CreateReservation(int roomId, DateTime checkInDate, DateTime checkOutDate)
         {
-            var reservation = _dbContext.Reservation.FirstOrDefault(r => r.Id == id);
-            if (reservation == null)
+            var room = _dbContext.Room.FirstOrDefault(r => r.Id == roomId);
+            if (room == null)
             {
                 return NotFound();
             }
-            UpdateReservationStatus(reservation);
-            return View(reservation);
-        }
 
-        public ActionResult Create()
-        {
-            return View();
+            var reservationViewModel = new ReservationViewModel
+            {
+                RoomId = roomId,
+                RoomName = room.Name,
+                CheckInDate = checkInDate,
+                CheckOutDate = checkOutDate
+            };
+             
+            return View(reservationViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Reservation reservation)
+        public IActionResult CreateReservation(ReservationViewModel model)
         {
             if (ModelState.IsValid)
             {
+                // Get the current user's ID
+                var userId = GetCurrentUserId();
+
+                // Create reservation
+                var reservation = new Reservation
+                {
+                    RoomId = model.RoomId,
+                    UserId = userId,
+                    CheckInDate = model.CheckInDate,
+                    CheckOutDate = model.CheckOutDate,
+                    Status = "Reserved"
+                };
+
                 _dbContext.Reservation.Add(reservation);
                 _dbContext.SaveChanges();
-                return RedirectToAction(nameof(Details), new { id = reservation.Id });
+
+                // Update room availability status
+                var room = _dbContext.Room.FirstOrDefault(r => r.Id == model.RoomId);
+                if (room != null)
+                {
+                    room.IsAvailable = false;
+                    _dbContext.SaveChanges();
+                }
+
+                return RedirectToAction("Details", "Reservation", new { id = reservation.Id });
             }
-            return View(reservation);
+
+            return View(model);
+        }
+
+        private int GetCurrentUserId()
+        {
+            // Retrieve the current user's ID from the claims
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            return userId != null ? int.Parse(userId) : 0;
+        }
+
+        public IActionResult Details(int id)
+        {
+            var reservation = _dbContext.Reservation
+                .Include(r => r.Room)
+                .ThenInclude(r => r.RoomImages)
+                .FirstOrDefault(r => r.Id == id);
+
+            if (reservation == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new ReservationDetailsViewModel
+            {
+                Reservation = reservation,
+                Room = reservation.Room
+            };
+
+            return View(viewModel);
         }
 
         public ActionResult Edit(int id)
@@ -100,30 +155,6 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
                 _dbContext.SaveChanges();
             }          
             return RedirectToAction(nameof(Index));
-        }
-
-        public ActionResult Reserve(int roomId, DateTime checkInDate, DateTime checkOutDate)
-        {
-            // Retrieve user ID from claims
-            var userIdString = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (!int.TryParse(userIdString, out int userId))
-            {
-                return RedirectToAction("Index", "Home"); 
-            }
-
-            var reservation = new Reservation
-            {
-                RoomId = roomId,
-                CheckInDate = checkInDate,
-                CheckOutDate = checkOutDate,
-                UserId = userId,
-            };
-
-            _dbContext.Reservation.Add(reservation);
-            _dbContext.SaveChanges();
-
-            return RedirectToAction("Index");
         }
 
         private void UpdateReservationStatus(Reservation reservation)

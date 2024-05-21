@@ -1,4 +1,4 @@
-﻿@model Hotel_Room_Reservation_System_Test.Models.Room
+﻿@model Hotel_Room_Reservation_System_Test.Models.RoomDetailsViewModel
 
 <style>
 
@@ -11,27 +11,91 @@
     h4 {
         color: white; /* Changed the title color to white */
     }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .col-sm-2,
+    .col-sm-10 {
+        flex: 0 0 auto;
+        color: white;
+        font-size: 18px;
+    }
+
+    .col-sm-2 {
+        width: 16.66667%;
+        font-weight: bold;
+    }
+
+    .col-sm-10 {
+        width: 83.33333%;
+    }
+
+    dt {
+        margin-bottom: 5px;
+    }
+
+    dd {
+        margin-bottom: 15px;
+    }
+
+    .room-image {
+        margin-top: 20px;
+    }
+
+        .room-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+    .image-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+        .image-gallery img {
+            width: 200px;
+            height: auto;
+            border: 1px solid #ccc;
+            padding: 5px;
+            background-color: white;
+        }
 </style>
 
 <h1>Room Details</h1>
 
 <div>
-    <h4>Name: @Model.Name</h4>
-    <h4>Description: @Model.Description</h4>
-    <h4>Room Capacity: @Model.RoomCapacity</h4>
-    <h4>Price: @Model.Price</h4>
-    <h4>Is Available: @Model.IsAvailable</h4>
+    <h4>Name: @Model.Room.Name</h4>
+    <h4>Description: @Model.Room.Description</h4>
+    <h4>Room Capacity: @Model.Room.RoomCapacity</h4>
+    <h4>Price: @Model.Room.Price</h4>
+    <h4>Is Available: @Model.Room.IsAvailable</h4>
 </div>
+@if (Model.RoomImages != null && Model.RoomImages.Any())
+{
+    <div class="image-gallery">
+        @foreach (var image in Model.RoomImages)
+        {
+            <div>
+                <img src="@Url.Content("~/images/" + image.ImageUrl)" alt="Room Image" />
+            </div>
+        }
+    </div>
+}
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Room.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 
 @{
-    if (Model.IsAvailable)
+    if (Model.Room.IsAvailable)
     {
-        <a asp-action="Reserve" asp-route-roomId="@Model.Id" class="btn btn-success">Reserve</a>
+        <a asp-action="Reserve" asp-route-roomId="@Model.Room.Id" class="btn btn-success">Reserve</a>
     }
     else
     {

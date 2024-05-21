@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Hotel_Room_Reservation_System_Test.Models.RoomImages>
+
+@{
+    ViewData["Title"] = "Room Images Gallery";
+}
+
+<h1>Room Images Gallery</h1>
+
+<div class="gallery">
+    @foreach (var item in Model)
+    {
+        <div class="gallery-item">
+            <img src="@Url.Content("~/images/" + item.ImageUrl)" alt="Room Image" />
+            <div class="gallery-item-info">
+                <p>Room ID: @item.RoomId</p>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .gallery-item {
+        position: relative;
+        width: 30%;
+        margin: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s;
+    }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+        }
+
+    .gallery-item-info {
+        position: absolute;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .gallery-item:hover {
+        transform: scale(1.05);
+    }
+</style>

@@ -1,0 +1,27 @@
+﻿@model Hotel_Room_Reservation_System_Test.Models.RoomImages
+
+@{
+    ViewData["Title"] = "Upload Image";
+}
+
+<h1>Upload Image</h1>
+
+<form asp-action="UploadImage" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="RoomId" class="control-label"></label>
+        <input asp-for="RoomId" class="form-control" />
+        <span asp-validation-for="RoomId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageFile" class="control-label"></label>
+        <input type="file" name="ImageFile" class="form-control" style="margin-bottom: 10px;" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Upload" class="btn btn-primary" />
+    </div>
+</form>
+
+<p>
+    <a asp-action="List" class="btn btn-secondary">View Room Images</a>
+</p>

@@ -16,6 +16,8 @@ namespace Hotel_Room_Reservation_System_Test.Models
         [Required]
         public bool IsAvailable { get; set; }
 
+        public ICollection<RoomImages> RoomImages { get; set; }
+
         public Room()
         {
             RoomCapacity = 0;
