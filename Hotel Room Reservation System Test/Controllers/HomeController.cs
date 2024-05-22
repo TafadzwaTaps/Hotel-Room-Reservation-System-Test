@@ -1,4 +1,5 @@
 using Hotel_Room_Reservation_System_Test.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -52,6 +53,42 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
             return View();
         }
 
+        public IActionResult Account()
+        {
+            // Add logic for Account view
+            return View();
+        }
+
+        public IActionResult Inbox()
+        {
+            // Add logic for Inbox view
+            return View();
+        }
+
+        public IActionResult TaskBoard()
+        {
+            // Add logic for TaskBoard view
+            return View();
+        }
+
+        public IActionResult Settings()
+        {
+            // Add logic for Settings view
+            return View();
+        }
+
+        public IActionResult Logout()
+        {
+            // Clear session data
+            HttpContext.Session.Clear();
+
+            // Manually remove the authentication cookies
+            Response.Cookies.Delete(".AspNetCore.Cookies");
+            Response.Cookies.Delete("YourCustomCookieName"); // If you have a custom cookie name
+
+            // Redirect to the login page
+            return RedirectToAction("Login", "Account");
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -19,13 +19,12 @@ namespace Hotel_Room_Reservation_System_Test.Databases
         public DbSet<Review> Review { get; set; }
         public DbSet<Facility> Facility { get; set; }
         public DbSet<User> User { get; set; }
-        public DbSet<UserRole> UserRole { get; set; }
         public DbSet<CancellationPolicy> CancellationPolicy { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = _configuration.GetConnectionString("HotelRoomDatabaseConnection");
+            string? connectionString = _configuration.GetConnectionString("HotelRoomDatabaseConnection");
             optionsBuilder.UseSqlServer(connectionString);
         }
 
@@ -36,7 +35,6 @@ namespace Hotel_Room_Reservation_System_Test.Databases
             modelBuilder.Entity<Hotel>().HasKey(h => h.Id);
             modelBuilder.Entity<Reservation>().HasKey(p => p.Id);
             modelBuilder.Entity<User>().HasKey(u => u.UserId);
-            modelBuilder.Entity<UserRole>().HasKey(m => m.UserId);
             modelBuilder.Entity<InvoiceGeneration>().HasKey(o => o.Id);
             modelBuilder.Entity<Payment>().HasKey(or => or.Id);
             modelBuilder.Entity<Review>().HasKey(s => s.Id);
