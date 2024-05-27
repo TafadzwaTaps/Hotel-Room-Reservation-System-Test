@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Hotel_Room_Reservation_System_Test.Models.Review>
+
+@{
+    ViewData["Title"] = "Inbox";
+}
+
+<h2>Inbox</h2>
+<div class="list-container">
+    <ul class="list-group">
+        @foreach (var review in Model)
+        {
+            <li class="list-group-item">
+                <p><strong>User:</strong> @review.UserID</p>
+                <p>@review.Comment</p>
+                <p>@review.Rating</p>
+            </li>
+        }
+    </ul>
+</div>
+

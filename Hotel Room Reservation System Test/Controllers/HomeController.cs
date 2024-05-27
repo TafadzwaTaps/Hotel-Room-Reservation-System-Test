@@ -1,17 +1,17 @@
+using Hotel_Room_Reservation_System_Test.Databases;
 using Hotel_Room_Reservation_System_Test.Models;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Hotel_Room_Reservation_System_Test.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly HotelDbContext _dbContext;
+        public HomeController(HotelDbContext dbContext)
         {
-            _logger = logger;
+            _dbContext = dbContext;
         }
 
         public IActionResult Index()
@@ -55,26 +55,36 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
 
         public IActionResult Account()
         {
-            // Add logic for Account view
-            return View();
-        }
-
-        public IActionResult Inbox()
-        {
-            // Add logic for Inbox view
-            return View();
-        }
-
-        public IActionResult TaskBoard()
-        {
-            // Add logic for TaskBoard view
-            return View();
+            var username = HttpContext.Session.GetString("Username");
+            var user = _dbContext.User.FirstOrDefault(u => u.UserName == username);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
         }
 
         public IActionResult Settings()
         {
-            // Add logic for Settings view
-            return View();
+            var username = HttpContext.Session.GetString("Username");
+            var user = _dbContext.User.FirstOrDefault(u => u.UserName == username);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        public IActionResult Inbox()
+        {
+            var reviews = _dbContext.Review.ToList(); 
+            return View(reviews);
+        }
+
+        public IActionResult TaskBoard()
+        {
+            var reservations = _dbContext.Reservation.ToList(); 
+            return View(reservations);
         }
 
         public IActionResult Logout()

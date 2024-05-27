@@ -3,9 +3,6 @@ using Hotel_Room_Reservation_System_Test.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace Hotel_Room_Reservation_System_Test.Controllers
 {
