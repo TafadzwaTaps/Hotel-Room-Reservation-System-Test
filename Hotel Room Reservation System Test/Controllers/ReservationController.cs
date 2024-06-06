@@ -10,7 +10,7 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
     {
         private readonly HotelDbContext _dbContext;
 
-        public ReservationController(HotelDbContext dbContext)
+       public ReservationController(HotelDbContext dbContext)
         {
             _dbContext = dbContext;
         }
