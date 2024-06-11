@@ -1,4 +1,4 @@
-﻿
+﻿ 
 using System.ComponentModel.DataAnnotations;
 
 namespace Hotel_Room_Reservation_System_Test.Models

@@ -4,11 +4,17 @@
     ViewData["Title"] = "Settings";
 }
 
-<h2>Settings</h2>
-<div class="form-container">
-    <p><strong>Name:</strong> @Model.FirstName @Model.LastName</p>
+<h1>Settings</h1>
+
+<div>
+    <h2>@Model.UserName's Profile</h2>
     <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>First Name:</strong> @Model.FirstName</p>
+    <p><strong>Last Name:</strong> @Model.LastName</p>
     <p><strong>Phone Number:</strong> @Model.PhoneNumber</p>
     <p><strong>Physical Address:</strong> @Model.PhysicalAddress</p>
-    <a asp-action="Edit" asp-controller="User" asp-route-id="@Model.UserId" class="btn btn-primary">Edit</a>
+</div>
+
+<div>
+    <a asp-action="Edit" class="btn btn-primary">Edit</a>
 </div>

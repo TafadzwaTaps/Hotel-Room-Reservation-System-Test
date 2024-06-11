@@ -3,9 +3,11 @@ using Hotel_Room_Reservation_System_Test.Databases;
 using Hotel_Room_Reservation_System_Test.Models;
 using System.Linq;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hotel_Room_Reservation_System_Test.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private readonly HotelDbContext _dbContext;

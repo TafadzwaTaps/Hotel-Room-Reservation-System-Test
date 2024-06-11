@@ -5,6 +5,8 @@ using Hotel_Room_Reservation_System_Test.Models;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 
 public class AccountController : Controller
 {
@@ -39,6 +41,8 @@ public class AccountController : Controller
         return View();
     }
 
+    [HttpGet]
+    [Route("Account/Login")]
     public IActionResult Login()
     {
         return View();
@@ -91,28 +95,73 @@ public class AccountController : Controller
     }
 
 
+    //[HttpPost]
+    //[ValidateAntiForgeryToken]
+    //public IActionResult Login(LoginView model)
+    //{
+    //    if (ModelState.IsValid)
+    //    {
+    //        var hashedPassword = (model.Password); // Hash the provided password
+    //        var user = _dbContext.User.FirstOrDefault(u => u.UserName == model.Username && u.PasswordHash == hashedPassword);
+
+    //        if (user != null)
+    //        {
+    //            var claims = new List<Claim>
+    //            {
+    //            new Claim(ClaimTypes.Name, model.Username ?? string.Empty),
+    //            new Claim(ClaimTypes.Role, user.Role ?? string.Empty)
+    //            };
+
+    //            var identity = new ClaimsIdentity(claims, "login");
+    //            var principal = new ClaimsPrincipal(identity);
+    //            var props = new AuthenticationProperties();
+    //            HttpContext.SignInAsync(principal, props);
+
+    //            if (!string.IsNullOrEmpty(user.UserName))
+    //            {
+    //                HttpContext.Session.SetString("Username", user.UserName);
+    //            }
+    //            if (!string.IsNullOrEmpty(user.Role))
+    //            {
+    //                HttpContext.Session.SetString("Role", user.Role);
+    //            }
+    //             Redirect to a success page after setting cookies or session variables
+    //            return RedirectToAction("HomePage", "home");
+    //        }
+
+    //        else
+    //        {
+    //            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+    //            return View(model);
+    //        }
+    //    }
+
+    //    return View(model);
+    //}
+
     [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Login(LoginView model)
+    [Route("Account/Login")]
+    public async Task<IActionResult> Login(LoginView model)
     {
         if (ModelState.IsValid)
         {
             var hashedPassword = (model.Password); // Hash the provided password
             var user = _dbContext.User.FirstOrDefault(u => u.UserName == model.Username && u.PasswordHash == hashedPassword);
-
             if (user != null)
             {
                 var claims = new List<Claim>
                 {
-                new Claim(ClaimTypes.Name, model.Username ?? string.Empty),
-                new Claim(ClaimTypes.Role, user.Role ?? string.Empty)
+                    new Claim(ClaimTypes.Name, user.UserName ?? string.Empty),
+                    new Claim(ClaimTypes.Role, user.Role ?? string.Empty)
                 };
 
-                var identity = new ClaimsIdentity(claims, "login");
-                var principal = new ClaimsPrincipal(identity);
-                var props = new AuthenticationProperties();
-                HttpContext.SignInAsync(principal, props);
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = model.RememberMe
+                };
 
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
                 if (!string.IsNullOrEmpty(user.UserName))
                 {
                     HttpContext.Session.SetString("Username", user.UserName);
@@ -121,19 +170,27 @@ public class AccountController : Controller
                 {
                     HttpContext.Session.SetString("Role", user.Role);
                 }
-                // Redirect to a success page after setting cookies or session variables
+
                 return RedirectToAction("HomePage", "home");
             }
-
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                return View(model);
-            }
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
         }
-
         return View(model);
     }
 
+
+    [HttpGet]
+    [Route("Account/Logout")]
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("Login", "Account");
+    }
+
+    [HttpGet]
+    public IActionResult AccessDenied()
+    {
+        return View();
+    }
 
 }

@@ -1,5 +1,6 @@
 using Hotel_Room_Reservation_System_Test.Databases;
 using Hotel_Room_Reservation_System_Test.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -53,38 +54,34 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
             return View();
         }
 
-        public IActionResult Account()
+        [Authorize(Roles = "Admin")]
+        public IActionResult TaskBoard()
         {
-            var username = HttpContext.Session.GetString("Username");
-            var user = _dbContext.User.FirstOrDefault(u => u.UserName == username);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View(user);
+            var reservations = _dbContext.Reservation.ToList();
+            return View(reservations);
         }
 
-        public IActionResult Settings()
-        {
-            var username = HttpContext.Session.GetString("Username");
-            var user = _dbContext.User.FirstOrDefault(u => u.UserName == username);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View(user);
-        }
-
+        [Authorize(Roles = "User, Admin")]
         public IActionResult Inbox()
         {
-            var reviews = _dbContext.Review.ToList(); 
+            var reviews = _dbContext.Review.ToList();
             return View(reviews);
         }
 
-        public IActionResult TaskBoard()
+        [Authorize(Roles = "User, Admin")]
+        public IActionResult Account()
         {
-            var reservations = _dbContext.Reservation.ToList(); 
-            return View(reservations);
+            var userName = HttpContext.User.Identity.Name;
+            var user = _dbContext.User.FirstOrDefault(u => u.UserName == userName);
+            return View(user);
+        }
+
+        [Authorize(Roles = "User, Admin")]
+        public IActionResult Settings()
+        {
+            var userName = HttpContext.User.Identity.Name;
+            var user = _dbContext.User.FirstOrDefault(u => u.UserName == userName);
+            return View(user);
         }
 
         public IActionResult Logout()
