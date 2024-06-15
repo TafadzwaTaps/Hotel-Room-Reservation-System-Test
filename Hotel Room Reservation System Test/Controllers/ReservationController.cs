@@ -8,7 +8,7 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
 {
     public class ReservationController : Controller
     {
-        private readonly HotelDbContext _dbContext;
+       private readonly HotelDbContext _dbContext;
 
        public ReservationController(HotelDbContext dbContext)
         {
