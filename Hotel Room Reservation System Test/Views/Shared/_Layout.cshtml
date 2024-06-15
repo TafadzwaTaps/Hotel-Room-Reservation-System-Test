@@ -5,6 +5,7 @@
     ViewData["Title"] = "Hotel Room Welcomes You";
 
     var httpContext = HttpContextAccessor.HttpContext;
+    var username = httpContext?.Session.GetString("Username");
     var role = httpContext?.Session.GetString("Role");
 
     // Debugging: Print out the retrieved role
@@ -133,6 +134,25 @@
                                     <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search...">
                                     <button id="searchButton" onclick="searchFunction()">Search</button>
                                 </div>
+                                <!-- Add user profile section -->
+                                <div class="user-profile">
+                                    <div class="user-details" onclick="toggleDropdown()">
+                                        <img src="~/img/User icon.jpg">
+                                        <div class="user-info">
+                                            <div class="username">@username</div>
+                                            <div class="role">@role</div>
+                                        </div>
+                                        <div class="dropdown-caret">&#9660;</div>
+                                    </div>
+                                    <div class="dropdown-menu" id="dropdownMenu">
+                                        <a class="dropdown-item" href="@Url.Action("Account", "Home")">Account</a>
+                                        <a class="dropdown-item" href="@Url.Action("Inbox", "Home")">Inbox</a>
+                                        <a class="dropdown-item" href="@Url.Action("TaskBoard", "Home")">TaskBoard</a>
+                                        <a class="dropdown-item" href="@Url.Action("Settings", "Home")">Settings</a>
+                                        <a class="dropdown-item" href="@Url.Action("Logout", "Home")">Logout</a>
+                                        <!-- Add more dropdown options as needed -->
+                                    </div>
+                                </div>
                             </li>                       
                         }
                         else if (role == "User")
@@ -204,6 +224,10 @@
                 window.location.href = '@Url.Action("Login", "Account")';
             }
         };
+        function toggleDropdown() {
+            var dropdownMenu = document.getElementById('dropdownMenu');
+            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+        }
     </script>
 </body>
 </html>

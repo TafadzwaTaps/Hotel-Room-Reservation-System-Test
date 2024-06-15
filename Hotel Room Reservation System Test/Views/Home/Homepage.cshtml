@@ -1,205 +1,154 @@
-﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
-@using Microsoft.AspNetCore.Http
-
-@{
-    ViewData["Title"] = "Hotel Room Welcomes You";
-    var httpContext = HttpContextAccessor.HttpContext;
-    var username = httpContext?.Session.GetString("Username");
-    var role = httpContext?.Session.GetString("Role");
+﻿@{
+    ViewData["Title"] = "HomePage";
 }
-
 <style>
-
-    /* Add custom styles for user profile */
-    .user-profile {
-        position: absolute;
-        top: 10px;
-        right: 5px;
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
     }
 
-        .user-profile img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 5px;
-        }
-
-        .user-profile .user-details {
-            display: flex;
-            align-items: center;
-            color: #333;
-            cursor: pointer;
-        }
-
-            .user-profile .user-details .username {
-                margin-right: 10px;
-            }
-
-        .user-profile .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 60px;
-            right: 0;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 999;
-        }
-
-            .user-profile .dropdown-menu a {
-                display: block;
-                padding: 10px;
-                color: #333;
-                text-decoration: none;
-                transition: background-color 0.3s ease;
-            }
-
-                .user-profile .dropdown-menu a:hover {
-                    background-color: #f1f1f1;
-                }
-
     .home {
-        background-color: #f8f9fa;
-        padding: 80px 0;
+        background-image: url('img/hotel-background.jpg');
+        background-size: cover;
+        background-position: center;
+        padding: 100px 0;
+        color: #fff;
         text-align: center;
     }
 
-        .home .item {
+        .home .content {
             max-width: 800px;
             margin: 0 auto;
-            text-align: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 10px;
         }
 
-            .home .item img {
-                width: 200px;
-                height: auto;
+            .home .content h1 {
+                font-size: 48px;
                 margin-bottom: 20px;
             }
 
-            .home .item .text h1 {
-                font-size: 36px;
-                color: #333;
-                margin-bottom: 20px;
-            }
-
-            .home .item .text p {
-                font-size: 18px;
-                color: #666;
+            .home .content p {
+                font-size: 20px;
                 line-height: 1.6;
             }
 
-            .home .item .flex {
+            .home .content .buttons {
                 margin-top: 30px;
             }
 
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        grid-gap: 20px;
-    }
+            .home .content .primary-btn,
+            .home .content .secondary-btn {
+                padding: 15px 30px;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                margin: 0 10px;
+                transition: background 0.3s;
+            }
 
-    input {
-        outline: none;
-        border: none;
-        width: 100%;
-    }
+            .home .content .primary-btn {
+                background-color: #7fc142;
+                color: #fff;
+            }
+
+            .home .content .secondary-btn {
+                background-color: #fff;
+                color: #333;
+            }
+
+            .home .content .primary-btn:hover {
+                background-color: #6bb03e;
+            }
+
+            .home .content .secondary-btn:hover {
+                background-color: #e2e2e2;
+            }
 
     .book {
-        padding: 40px 0;
+        padding: 60px 0;
         background: #282834;
         color: #fff;
+        text-align: center;
     }
 
-    h1 {
-        font-family: serif;
-    }
-
-    .book h1 {
-        font-size: 28px;
-    }
-
-        .book h1 span {
-            color: #7fc142;
-        }
-
-    .book input {
-        padding: 20px;
-        width: calc(85% - 10px); /* Adjust the width as needed */
-        margin-right: 10px; /* Add some margin between inputs */
-    }
-
-        .book input:nth-last-child(1) {
-            background: #7fc142;
-            color: #fff;
-            width: auto; /* Keep the last input to fill the remaining space */
-        }
-
-
-
-    footerContent {
-        background: #282834;
-        color: #b6b7b9;
-        padding: 10% 0 5% 0;
-    }
-
-        footerContent .grid {
-            grid-template-columns: 6fr 3fr 3fr;
-        }
-
-        footerContent p {
-            color: #fff;
-            font-size: 20px;
-            line-height: 25px;
-        }
-
-        footerContent .icon i {
-            margin: 20px 20px 20px 0;
-            color: #b6b7b9;
-        }
-
-        footerContent h2 {
-            color: #fff;
-            margin-bottom: 10px;
-        }
-
-        footerContent li {
+        .book h1 {
+            font-size: 36px;
             margin-bottom: 20px;
         }
 
-        footerContent i {
-            color: #7fc142;
-            margin: 20px 0;
-            margin-right: 20px;
+        .book form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-        footerContent label {
-            margin: 20px 0;
+        .book input,
+        .book button {
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin: 5px;
         }
 
-    /* Rooms */
+        .book input {
+            width: calc(25% - 20px);
+        }
+
+        .book button {
+            background-color: #7fc142;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+            .book button:hover {
+                background-color: #6bb03e;
+            }
+
     .gallery {
         padding: 60px 0;
         background-color: #f8f9fa;
     }
 
+        .gallery .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
     .room-item {
         border: 1px solid #dee2e6;
-        border-radius: 5px;
+        border-radius: 10px;
         overflow: hidden;
-        margin-bottom: 30px;
+        margin: 20px;
+        width: calc(33% - 40px);
+        background-color: #fff;
+        transition: transform 0.3s;
     }
+
+        .room-item:hover {
+            transform: translateY(-10px);
+        }
 
         .room-item img {
             width: 100%;
             height: auto;
-            border-bottom: 1px solid #dee2e6;
         }
 
         .room-item .details {
             padding: 20px;
+            text-align: center;
         }
 
         .room-item h3 {
-            font-size: 20px;
+            font-size: 24px;
             margin-bottom: 10px;
             color: #333;
         }
@@ -215,270 +164,79 @@
             color: #7fc142;
         }
 
-            .room-item .price span {
-                color: #666;
-                font-size: 14px;
-                margin-left: 5px;
-            }
-
-    .box {
-        color: #fff; /* White */
+    footer {
+        background: #282834;
+        color: #b6b7b9;
+        padding: 60px 0;
+        text-align: center;
     }
 
-        .box h2 {
-            font-size: 24px; /* Increase font size as needed */
+        footer .grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
         }
 
-        .box ul {
-            list-style-type: none;
-            padding: 0;
+        footer .box {
+            width: 30%;
+            margin: 20px;
         }
 
-            .box ul li {
-                font-size: 18px; /* Increase font size as needed */
+            footer .box h2 {
+                color: #fff;
+                margin-bottom: 20px;
             }
 
-                .box ul li a {
-                    color:white;
+            footer .box p,
+            footer .box a,
+            footer .box label {
+                color: #b6b7b9;
+                font-size: 16px;
+            }
+
+                footer .box a:hover {
+                    color: #fff;
                 }
 
-
-        .box p {
-            font-size: 18px; /* Increase font size as needed */
-            margin-bottom: 10px;
+        footer .icon i {
+            margin: 0 10px;
+            color: #b6b7b9;
+            cursor: pointer;
+            transition: color 0.3s;
         }
 
-        .box i {
-            margin-right: 5px;
-        }
-
-    .user-info {
-        font-size: 14px; /* Adjust the font size as needed */
-        text-align: center; /* Align the text center */
-    }
-
-    .username {
-        font-size: 16px; /* Larger font size for username */
-        margin-bottom: 5px; /* Add some bottom margin */
-    }
-
-    .role {
-        font-size: 12px; /* Smaller font size for role */
-    }
-
+            footer .icon i:hover {
+                color: #fff;
+            }
 
 </style>
 
 <body>
-    <!-- Add user profile section -->
-    <div class="user-profile">
-        <div class="user-details" onclick="toggleDropdown()">
-            <img src="~/img/User icon.jpg">
-            <div class="user-info">
-                <div class="username">@username</div>
-                <div class="role">@role</div>
-            </div>
-            <div class="dropdown-caret">&#9660;</div>
-        </div>
-        <div class="dropdown-menu" id="dropdownMenu">
-            <a class="dropdown-item" href="@Url.Action("Account", "Home")">Account</a>
-            <a class="dropdown-item" href="@Url.Action("Inbox", "Home")">Inbox</a>
-            <a class="dropdown-item" href="@Url.Action("TaskBoard", "Home")">TaskBoard</a>
-            <a class="dropdown-item" href="@Url.Action("Settings", "Home")">Settings</a>
-            <a class="dropdown-item" href="@Url.Action("Logout", "Home")">Logout</a>
-            <!-- Add more dropdown options as needed -->
-        </div>
-    </div>
-
-    <br />
-
     <section class="home">
         <div class="content">
-            <div class="item">
-                <img src="~/img/Hotel Logo.jpg" alt="Hotel Logo">
-                <div class="text">
-                    <h1>Welcome to Our Hotel</h1>
-                    <p>
-                        Discover comfort, luxury, and unparalleled service at our hotel. Whether you're traveling for business or leisure, we have everything you need to make your stay memorable.
-                    </p>
-                    <div class="flex">
-                        <button class="primary-btn">Explore Rooms</button>
-                        <button class="secondary-btn">Contact Us</button>
-                    </div>
-                </div>
+            <h1>Welcome to Our Hotel</h1>
+            <p>
+                Discover comfort, luxury, and unparalleled service at our hotel. Whether you're traveling for business or leisure, we have everything you need to make your stay memorable.
+            </p>
+            <div class="flex">
+                <button class="primary-btn">Explore Rooms</button>
+                <button class="secondary-btn">Contact Us</button>
             </div>
         </div>
     </section>
 
     <section class="book">
         <div class="container">
-            <div class="text">
-                <h1>Book Your Stay</h1>
-            </div>
-            <div class="form">
-                <form class="grid">
-                    <input type="date" placeholder="Arrival Date">
-                    <input type="date" placeholder="Departure Date">
-                    <input type="number" placeholder="Adults">
-                    <input type="number" placeholder="Children">
-                    <button class="primary-btn">Check Availability</button>
-                </form>
-            </div>
+            <h1>Book Your Stay</h1>
+            <form>
+                <input type="date" placeholder="Arrival Date">
+                <input type="date" placeholder="Departure Date">
+                <input type="number" placeholder="Adults">
+                <input type="number" placeholder="Children">
+                <button type="submit">Check Availability</button>
+            </form>
         </div>
     </section>
-
-
-    <section class="gallery">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="room-item">
-                        <img src="~/img/room-1.jpg" alt="Room 1">
-                        <div class="details">
-                            <h3>Superior Room</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, explicabo?</p>
-                            <div class="price">$280 <span>Per Night</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="room-item">
-                        <img src="~/img/room-2.jpg" alt="Room 2">
-                        <div class="details">
-                            <h3>Deluxe Room</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, explicabo?</p>
-                            <div class="price">$255 <span>Per Night</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="room-item">
-                        <img src="~/img/room-3.jpg" alt="Room 3">
-                        <div class="details">
-                            <h3>Executive Suite</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, explicabo?</p>
-                            <div class="price">$320 <span>Per Night</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="room-item">
-                        <img src="~/img/room-4.jpg" alt="Room 4">
-                        <div class="details">
-                            <h3>Premium Suite</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, explicabo?</p>
-                            <div class="price">$285 <span>Per Night</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="room-item">
-                        <img src="~/img/room-5.jpg" alt="Room 5">
-                        <div class="details">
-                            <h3>Luxury Villa</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, explicabo?</p>
-                            <div class="price">$400 <span>Per Night</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="room-item">
-                        <img src="~/img/room-6.jpg" alt="Room 6">
-                        <div class="details">
-                            <h3>Ocean View Room</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, explicabo?</p>
-                            <div class="price">$350 <span>Per Night</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="room-item">
-                        <img src="~/img/room-7.jpg" alt="Room 7">
-                        <div class="details">
-                            <h3>Family Suite</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, explicabo?</p>
-                            <div class="price">$250 <span>Per Night</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="room-item">
-                        <img src="~/img/room-8.jpg" alt="Room 8">
-                        <div class="details">
-                            <h3>Presidential Suite</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, explicabo?</p>
-                            <div class="price">$300 <span>Per Night</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="room-item">
-                        <img src="~/img/double room.jpg" alt="Room 9">
-                        <div class="details">
-                            <h3>Comfortable and elegant room with double bed and tv</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, explicabo?</p>
-                            <div class="price">$190 <span>Per Night</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <script>
-
-    <div id="main">
-        <div id='calendar'></div>
-
-        @section scripts {
-            <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
-            <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
-            <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
-
-            <script>
-                $(document).ready(function () {
-                    $('#calendar').fullCalendar({
-                        defaultView: 'month',
-                        header: {
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'month,agendaWeek,agendaDay'
-                        },
-                        selectable: true,
-                        selectHelper: true,
-                        editable: true,
-                        eventLimit: true,
-                        events: [
-                            {
-                                title: 'Event 1',
-                                start: '2023-10-01'
-                            },
-                            {
-                                title: 'Event 2',
-                                start: '2023-10-05',
-                                end: '2023-10-07'
-                            },
-                            {
-                                title: 'Event 3',
-                                start: '2023-10-09T12:30:00',
-                                allDay: false
-                            }
-                            // add more events here...
-                        ]
-                    });
-
-                });
-
-                function toggleDropdown() {
-                    var dropdownMenu = document.getElementById('dropdownMenu');
-                    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-                }
-            </script>
-        }
-    </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
 
     <footerContent>
         <div class="container grid">
@@ -523,5 +281,4 @@
             </div>
         </div>
     </footerContent>
-
 </body>
