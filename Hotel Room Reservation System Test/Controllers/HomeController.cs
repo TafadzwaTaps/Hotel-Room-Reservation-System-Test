@@ -1,5 +1,7 @@
 using Hotel_Room_Reservation_System_Test.Databases;
 using Hotel_Room_Reservation_System_Test.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -87,20 +89,33 @@ namespace Hotel_Room_Reservation_System_Test.Controllers
         public IActionResult Logout()
         {
             // Clear session data
-            HttpContext.Session.Clear();
+            HttpContext.Session.Clear(); 
 
             // Manually remove the authentication cookies
             Response.Cookies.Delete(".AspNetCore.Cookies");
             Response.Cookies.Delete("YourCustomCookieName"); // If you have a custom cookie name
 
-            // Redirect to the login page
-            return RedirectToAction("Login", "Account");
+            // Sign out the user
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Redirect to the logged out page
+            return RedirectToAction("LoggedOut", "Home");
+
+        }
+
+        public IActionResult LoggedOut()
+        {
+            return View();  
         }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            if (User.Identity.IsAuthenticated == false)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }

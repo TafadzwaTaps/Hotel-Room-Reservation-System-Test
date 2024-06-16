@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Logged Out";
+}
+
+<h1>You have been logged out.</h1>
+<p>Please <a asp-action="Login" asp-controller="Account">log in</a> again to continue.</p>
+
+<script>
+    // Prevent going back to authenticated pages
+    window.onpageshow = function (event) {
+        if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+            window.location.href = '@Url.Action("Login", "Account")';
+        }
+    };
+</script>

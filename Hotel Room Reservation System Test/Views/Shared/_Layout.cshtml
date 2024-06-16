@@ -67,20 +67,10 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: #333; /* Choose your desired background color */
+            background-color: #282834; /* Choose your desired background color */
             color: #fff; /* Choose your desired text color */
             padding: 10px 0;
             text-align: center;
-        }
-
-        .search-container {
-            margin-top: 5px;
-            margin-left: 15px;
-            display: flex; /* Make the container a flexbox */
-            align-items: center; /* Align search bar vertically in the center */
-            width: 100%; /* Make the container take up full width */
-            border: 1px solid #000;
-            
         }
 
         input {
@@ -130,10 +120,6 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User</a>
                             </li>
                             <li>
-                                <div class="search-container">
-                                    <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search...">
-                                    <button id="searchButton" onclick="searchFunction()">Search</button>
-                                </div>
                                 <!-- Add user profile section -->
                                 <div class="user-profile">
                                     <div class="user-details" onclick="toggleDropdown()">
@@ -177,13 +163,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="UserProfile" asp-action="Index">Profile</a>
-                            </li>
-                            <li>
-                                <div class="search-container">
-                                    <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search...">
-                                    <button id="searchButton" onclick="searchFunction()">Search</button>
-                                </div>
-                            </li>                         
+                            </li>                        
                         }
                         else
                         {
@@ -199,7 +179,6 @@
                         }
                     }                  
                 </ul>
-
             </div>
         </nav>
     </header>
@@ -219,11 +198,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
-        window.onpageshow = function (event) {
-            if (event.persisted || (window.performance && window.performance.navigation.type == 10)) {
-                window.location.href = '@Url.Action("Login", "Account")';
-            }
-        };
+
         function toggleDropdown() {
             var dropdownMenu = document.getElementById('dropdownMenu');
             dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';

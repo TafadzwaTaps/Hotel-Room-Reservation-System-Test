@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 public class AccountController : Controller
 {
@@ -139,6 +140,7 @@ public class AccountController : Controller
     //    return View(model);
     //}
 
+    [AllowAnonymous]
     [HttpPost]
     [Route("Account/Login")]
     public async Task<IActionResult> Login(LoginView model)
@@ -178,19 +180,20 @@ public class AccountController : Controller
         return View(model);
     }
 
+    [HttpGet]
+    public IActionResult AccessDenied()
+    {
+        return View();
+    }
 
     [HttpGet]
     [Route("Account/Logout")]
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return RedirectToAction("Login", "Account");
+        HttpContext.Session.Clear();
+        return RedirectToAction("LoggedOut", "Home");
     }
 
-    [HttpGet]
-    public IActionResult AccessDenied()
-    {
-        return View();
-    }
 
 }

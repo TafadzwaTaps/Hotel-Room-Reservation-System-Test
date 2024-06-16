@@ -15,6 +15,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
             .AddCookie(options =>
             {
                 options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Home/LoggedOut";
                 options.AccessDeniedPath = "/Account/AccessDenied";
             });
 builder.Services.AddSession(options =>
@@ -47,6 +48,7 @@ app.UseRouting();
 // Add ASP.NET Identity middleware
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",
